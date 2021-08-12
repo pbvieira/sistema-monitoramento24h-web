@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:body>
+
+        <ui:composition template="template.xhtml">
+
+            <ui:define name="sidemanu">
+                <h:form id="menuClienteForm">
+                    <p:menu style="width: 100%;">
+                        <p:submenu label="Opções">
+                            <p:menuitem value="Consultar clientes" outcome="lclientes.xhtml" icon="pi pi-search"/>
+                            <p:menuitem value="Cadastrar clientes" outcome="fclientes.xhtml" icon="pi pi-save"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="clienteSearch">
+                    <p:card style="margin: 1em 1em 1em 1em">
+                        <p:dataTable id="clientesDataTable" widgetVar="wvClientesDataTable"
+                                     value="#{clienteMB.clienteLazyDataModel}" var="cliente" paginator="true" rows="10"
+                                     lazy="true">
+                            <f:facet name="header">
+                                <div>
+                                    <span style="font-weight: bold">Clientes</span>
+                                    <span class="ui-input-icon-left">
+                                                    <i class="pi pi-search"></i>
+                                                    <p:inputText id="globalFilter"
+                                                                 onkeyup="PF('wvClientesDataTable').filter()"
+                                                                 placeholder="Consultar"/>
+                                                </span>
+                                </div>
+                            </f:facet>
+                            <p:column class="p-col-12 p-md-1 p-text-uppercase" headerText="Id">#{cliente.id}</p:column>
+                            <p:column class="p-col-12 p-md-2 p-text-uppercase" headerText="Unidade">#{cliente.unidade}
+                            </p:column>
+                            <p:column class="p-col-12 p-md-3 p-text-uppercase"
+                                      headerText="Nome">#{cliente.nome}</p:column>
+                            <p:column class="p-col-12 p-md-2 p-text-uppercase"
+                                      headerText="Cidade">#{cliente.cidade}</p:column>
+                            <p:column class="p-col-12 p-md-2 p-text-uppercase"
+                                      headerText="Bairro">#{cliente.bairro}</p:column>
+                            <p:column class="p-col-12 p-md-2 p-text-uppercase" headerText="">
+                                <p:commandButton>
+
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:card>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</f:view>
+
+</html>
+

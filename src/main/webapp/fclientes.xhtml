@@ -2,188 +2,305 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
-    <h:head>
-        <h:outputStylesheet name="css/azsim-base.css"/>
-        <h:outputStylesheet name="css/primeflex.css"/>
-    </h:head>
     <h:body>
 
-        <h:form id="clienteForm">
+        <ui:composition template="template.xhtml">
 
-            <p:breadCrumb style="margin: 1em 1em 1em 1em">
-                <p:menuitem value="Home"/>
-                <p:menuitem value="Cadastro de cliente"/>
-            </p:breadCrumb>
+            <ui:define name="sidemanu">
 
-            <p:card style="margin: 1em 1em 1em 1em">
+                <h:form id="menuClienteForm">
+                    <p:menu style="width: 100%;">
+                        <p:submenu label="Opções">
+                            <p:menuitem value="Consultar clientes" outcome="lclientes.xhtml" icon="pi pi-search"/>
+                            <p:menuitem value="Cadastrar clientes" outcome="fclientes.xhtml" icon="pi pi-save"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
 
-                <p:tabView>
-                    <p:tab title="Cliente">
+            <ui:define name="content">
 
-                        <p:messages/>
+                <h:form id="clienteForm">
 
-                        <div class="ui-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-1">
-                                <label for="id">Código</label>
-                                <p:inputText id="id" type="text" value="#{clienteMB.cliente.id}" label="Código" disabled="true"/>
-                            </div>
+                    <p:card style="margin: 1em 1em 1em 0">
+                        <p:tabView>
 
-                            <div class="p-field p-col-12 p-md-2">
-                                <label for="unidade">Unidade</label>
-                                <p:selectOneMenu id="unidade" value="#{clienteMB.cliente.unidade}" required="true" label="Unidade">
-                                    <f:selectItem itemLabel="SELECIONE" itemValue="#{null}"/>
-                                    <f:selectItem itemLabel="MONTENEGRO" itemValue="MONTENEGRO"/>
-                                    <f:selectItem itemLabel="LAJEADO" itemValue="LAJEADO"/>
-                                </p:selectOneMenu>
-                            </div>
+                            <p:tab title="Dados básicos">
 
-                            <div class="p-field p-col-12 p-md-1">
-                                <label for="habil">Cód. Hábil</label>
-                                <p:inputText id="codigoHabil" type="text" value="#{clienteMB.cliente.habil}" label="Código Hábil"/>
-                            </div>
+                                <p:messages/>
 
-                            <div class="p-field p-col-12 p-md-1">
-                                <label for="condor">Cód. Condor</label>
-                                <p:inputText id="codigoCondor" type="text" value="#{clienteMB.cliente.condor}" label="Código Condor"/>
-                            </div>
+                                <div class="ui-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="id">Código</label>
+                                        <p:inputText id="id" type="text" value="#{clienteMB.cliente.id}" label="Código"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-2">
-                                <label for="natureza">Natureza</label>
-                                <p:selectOneMenu id="natureza" value="#{clienteMB.cliente.natureza}" label="Natureza">
-                                    <p:ajax event="change" update="documento" listener="#{clienteMB.changeMask}" />
-                                    <f:selectItem itemLabel="FÍSICA" itemValue="FISICA"/>
-                                    <f:selectItem itemLabel="JURÍDICA" itemValue="JURIDICA"/>
-                                </p:selectOneMenu>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="unidade">Unidade</label>
+                                        <p:selectOneMenu id="unidade" value="#{clienteMB.cliente.unidade}"
+                                                         required="true" label="Unidade">
+                                            <f:selectItem itemLabel="SELECIONE" itemValue="#{null}"/>
+                                            <f:selectItem itemLabel="MONTENEGRO" itemValue="MONTENEGRO"/>
+                                            <f:selectItem itemLabel="LAJEADO" itemValue="LAJEADO"/>
+                                        </p:selectOneMenu>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-3">
-                                <label for="documento">CPF/CPNPJ</label>
-                                <p:inputMask id="documento" type="text" value="#{clienteMB.cliente.documento}" required="true"
-                                             label="Documento" mask="#{clienteMB.documentoMask}"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="habil">Cód. Hábil</label>
+                                        <p:inputText id="codigoHabil" type="text" value="#{clienteMB.cliente.habil}"
+                                                     label="Código Hábil" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-2">
-                                <label for="inscMunicipal">Incrição Municipal</label>
-                                <p:inputText id="inscMunicipal" type="text" value="#{clienteMB.cliente.inscMunicipal}" label="Inscrição Municipal"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="condor">Cód. Condor</label>
+                                        <p:inputText id="codigoCondor" type="text" value="#{clienteMB.cliente.condor}"
+                                                     label="Código Condor" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-6">
-                                <label for="nome">Nome/Razão Social</label>
-                                <p:inputText id="nome" type="text" value="#{clienteMB.cliente.nome}" required="true" label="Nome/Razão Social"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="natureza">Natureza</label>
+                                        <p:selectOneMenu id="natureza" value="#{clienteMB.cliente.natureza}"
+                                                         label="Natureza">
+                                            <p:ajax listener="#{clienteMB.changeMask()}" event="change"
+                                                    update="documento" process="@this"/>
+                                            <f:selectItem itemLabel="FÍSICA" itemValue="FISICA"/>
+                                            <f:selectItem itemLabel="JURÍDICA" itemValue="JURIDICA"/>
+                                        </p:selectOneMenu>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-6">
-                                <label for="nomeFantasia">Nome Fantasia</label>
-                                <p:inputText id="nomeFantasia" type="text" value="#{clienteMB.cliente.nomeFantasia}" label="Nome Fantasia"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="documento">CPF/CPNPJ</label>
+                                        <p:inputMask id="documento" type="text" value="#{clienteMB.cliente.documento}"
+                                                     required="true" label="Documento"
+                                                     mask="#{clienteMB.documentoMask}"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-4">
-                                <label for="endereco">Endereço</label>
-                                <p:inputText id="endereco" type="text" value="#{clienteMB.cliente.endereco}" label="Endereço"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="inscMunicipal">Incrição Municipal</label>
+                                        <p:inputText id="inscMunicipal" type="text"
+                                                     value="#{clienteMB.cliente.inscMunicipal}"
+                                                     label="Inscrição Municipal" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-3">
-                                <label for="bairro">Bairro</label>
-                                <p:inputText id="bairro" type="text" value="#{clienteMB.cliente.bairro}" label="Bairro"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <label for="nome">Nome/Razão Social</label>
+                                        <p:inputText id="nome" type="text" value="#{clienteMB.cliente.nome}"
+                                                     required="true"
+                                                     label="Nome/Razão Social" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-2">
-                                <label for="cidade">Cidade</label>
-                                <p:inputText id="cidade" type="text" value="#{clienteMB.cliente.cidade}" label="Cidade"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <label for="nomeFantasia">Nome Fantasia</label>
+                                        <p:inputText id="nomeFantasia" type="text"
+                                                     value="#{clienteMB.cliente.nomeFantasia}"
+                                                     label="Nome Fantasia" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-1">
-                                <label for="uf">UF</label>
-                                <p:inputText id="uf" type="text" value="#{clienteMB.cliente.uf}" label="UF"/>
-                            </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label for="endereco">Endereço</label>
+                                        <p:inputText id="endereco" type="text" value="#{clienteMB.cliente.endereco}"
+                                                     label="Endereço" class="p-text-uppercase"/>
+                                    </div>
 
-                            <div class="p-field p-col-12 p-md-2">
-                                <label for="cep">Cep</label>
-                                <p:inputText id="cep" type="text" value="#{clienteMB.cliente.cep}" label="CEP"/>
-                            </div>
-                        </div>
-                    </p:tab>
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="bairro">Bairro</label>
+                                        <p:inputText id="bairro" type="text" value="#{clienteMB.cliente.bairro}"
+                                                     label="Bairro"
+                                                     class="p-text-uppercase"/>
+                                    </div>
 
-                    <p:tab title="Contatos">
-                        <p class="p-m-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab
-                            illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                            ipsam
-                            voluptatem quia voluptas sit aspernatur aut
-                            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
-                            nesciunt.
-                            Consectetur, adipisci velit, sed quia non numquam eius modi.
-                        </p>
-                    </p:tab>
-                    <p:tab title="Procedimentos">
-                        <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque corrupti quos dolores
-                            et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                            qui
-                            officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
-                            nobis
-                            est eligendi optio cumque nihil impedit quo minus.
-                        </p>
-                    </p:tab>
-                    <p:tab title="Viagens">
-                        <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque corrupti quos dolores
-                            et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                            qui
-                            officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
-                            nobis
-                            est eligendi optio cumque nihil impedit quo minus.
-                        </p>
-                    </p:tab>
-                    <p:tab title="Rondas">
-                        <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque corrupti quos dolores
-                            et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                            qui
-                            officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
-                            nobis
-                            est eligendi optio cumque nihil impedit quo minus.
-                        </p>
-                    </p:tab>
-                    <p:tab title="Contratos">
-                        <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque corrupti quos dolores
-                            et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                            qui
-                            officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
-                            nobis
-                            est eligendi optio cumque nihil impedit quo minus.
-                        </p>
-                    </p:tab>
-                </p:tabView>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="cidade">Cidade</label>
+                                        <p:inputText id="cidade" type="text" value="#{clienteMB.cliente.cidade}"
+                                                     label="Cidade"
+                                                     class="p-text-uppercase"/>
+                                    </div>
 
-                <f:facet name="footer">
-                    <p:commandButton icon="pi pi-save" value="Salvar" update="clienteForm" action="#{clienteMB.salvar()}" />
-                    <p:commandButton icon="pi pi-user-plus" value="Novo" styleClass="ui-button-info" style="margin-left: .5em"/>
-                    <p:commandButton icon="pi pi-times" value="Cancelar" styleClass="ui-button-secondary" style="margin-left: .5em"/>
-                    <p:commandButton icon="pi pi-trash" value="Excluir" styleClass="ui-button-danger" style="margin-left: .5em"/>
-                </f:facet>
-            </p:card>
-        </h:form>
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="uf">UF</label>
+                                        <p:inputText id="uf" type="text" value="#{clienteMB.cliente.uf}" label="UF"
+                                                     class="p-text-uppercase"/>
+                                    </div>
 
-        <h:form id="clientesForm">
-            <p:card style="margin: 1em 1em 1em 1em">
-                <p:dataTable id="clientesDataTable" value="#{clienteMB.clienteLazyDataModel}" var="cliente" paginator="true" rows="10" lazy="true">
-                    <p:column>#{cliente.unidade}</p:column>
-                    <p:column>#{cliente.id}</p:column>
-                    <p:column>#{cliente.nome}</p:column>
-                    <p:column>#{cliente.cidade}</p:column>
-                </p:dataTable>
-            </p:card>
-        </h:form>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="cep">Cep</label>
+                                        <p:inputText id="cep" type="text" value="#{clienteMB.cliente.cep}" label="CEP"
+                                                     class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-12">
+                                        <label for="obs">Observações</label>
+                                        <p:inputTextarea id="obs" rows="4" value="#{clienteMB.cliente.observacao}"
+                                                         label="OBS" class="p-text-uppercase"/>
+                                    </div>
+
+                                </div>
+
+                            </p:tab>
+
+                            <p:tab title="Central de Alarme">
+                                <p:messages/>
+
+                                <div class="ui-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="monitoramento_codificador">Codificador</label>
+                                        <p:inputText id="monitoramento_codificador" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoCodificador}"
+                                                     label="Codificador"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label for="monitoramento_central">Modelo da Central</label>
+                                        <p:inputText id="monitoramento_central" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoModeloCentral}"
+                                                     label="Modelo da Central" class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-7 p-md-7"></div>
+
+                                    <div class="p-field p-col-12 p-md-12">
+                                        <p:selectBooleanCheckbox id="monitoramento_mesmo_endereco_cobranca"
+                                                                 itemLabel="Preencher com o endereço de cobrança do cliente">
+                                            <p:ajax update="monitoramento_endereco, monitoramento_bairro, monitoramento_cidade, monitoramento_uf, monitoramento_cep"/>
+                                        </p:selectBooleanCheckbox>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label for="monitoramento_endereco">Endereço de monitoramento</label>
+                                        <p:inputText id="monitoramento_endereco" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoEndereco}"
+                                                     label="Endereço" class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="monitoramento_bairro">Bairro</label>
+                                        <p:inputText id="monitoramento_bairro" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoBairro}" label="Bairro"
+                                                     class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="monitoramento_cidade">Cidade</label>
+                                        <p:inputText id="monitoramento_cidade" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoCidade}" label="Cidade"
+                                                     class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-1">
+                                        <label for="monitoramento_uf">UF</label>
+                                        <p:inputText id="monitoramento_uf" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoUf}" label="UF"
+                                                     class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <label for="monitoramento_cep">Cep</label>
+                                        <p:inputText id="monitoramento_cep" type="text"
+                                                     value="#{clienteMB.cliente.monitoramentoCep}" label="CEP"
+                                                     class="p-text-uppercase"/>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-12">
+                                        <label for="monitoramento_obs">Observações</label>
+                                        <p:inputTextarea id="monitoramento_obs" rows="4"
+                                                         value="#{clienteMB.cliente.monitoramentoObservacao}"
+                                                         label="OBS" class="p-text-uppercase"/>
+                                    </div>
+                                </div>
+
+
+                            </p:tab>
+
+                            <p:tab title="Contatos">
+                                <p class="p-m-0">
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                    laudantium, totam rem aperiam, eaque ipsa quae ab
+                                    illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                                    ipsam
+                                    voluptatem quia voluptas sit aspernatur aut
+                                    odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
+                                    nesciunt.
+                                    Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Procedimentos">
+                                <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                                    praesentium voluptatum deleniti atque corrupti quos dolores
+                                    et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                                    qui
+                                    officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
+                                    nobis
+                                    est eligendi optio cumque nihil impedit quo minus.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Viagens">
+                                <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                                    praesentium voluptatum deleniti atque corrupti quos dolores
+                                    et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                                    qui
+                                    officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
+                                    nobis
+                                    est eligendi optio cumque nihil impedit quo minus.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Rondas">
+                                <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                                    praesentium voluptatum deleniti atque corrupti quos dolores
+                                    et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                                    qui
+                                    officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
+                                    nobis
+                                    est eligendi optio cumque nihil impedit quo minus.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Contratos">
+                                <p class="p-m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                                    praesentium voluptatum deleniti atque corrupti quos dolores
+                                    et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                                    qui
+                                    officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
+                                    nobis
+                                    est eligendi optio cumque nihil impedit quo minus.
+                                </p>
+                            </p:tab>
+                        </p:tabView>
+
+                        <f:facet name="footer">
+                            <p:commandButton icon="pi pi-save" value="Salvar"
+                                             update="clienteForm"
+                                             action="#{clienteMB.salvar()}"/>
+
+                            <p:commandButton icon="pi pi-user-plus" value="Novo" process="@this" update="clienteForm"
+                                             action="#{clienteMB.novo()}" styleClass="ui-button-info"
+                                             style="margin-left: .5em">
+                                <p:confirm header="Confirmação"
+                                           message="Tem certeza de que deseja continuar?  &lt;br/&gt;&lt;b&gt;Dados não salvos serão perdidos!&lt;b/&gt;"
+                                           escape="false" icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+
+                            <p:commandButton icon="pi pi-trash" value="Excluir" styleClass="ui-button-danger"
+                                             style="margin-left: .5em"/>
+                        </f:facet>
+                    </p:card>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+                    </p:confirmDialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
 
     </h:body>
 </f:view>

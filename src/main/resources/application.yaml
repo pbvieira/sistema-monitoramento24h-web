@@ -6,8 +6,8 @@ spring:
     password: AzsimDbPassword2021
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
     hibernate:
-      dialect: org.hibernate.dialect.MariaDBDialect
       ddl-auto: create-drop
 
 server:

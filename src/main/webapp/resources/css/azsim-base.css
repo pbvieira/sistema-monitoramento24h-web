@@ -2,12 +2,13 @@ html {
   font-size: 12px; }
 
 body {
-  /*margin: 0px;*/
+  margin:0px;
+  padding:0px;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--surface-d);
-  font-family: var(--font-family);
+  font-family: "Open Sans", arial;
   font-weight: normal;
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
