@@ -1,15 +1,33 @@
 html {
-  font-size: 12px; }
+    font-size: 13px;
+}
 
 body {
-  margin:0px;
-  padding:0px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: var(--surface-d);
-  font-family: "Open Sans", arial;
-  font-weight: normal;
-  color: var(--text-color);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*background: linear-gradient(to top right, #e2f1fc, #347bb1) fixed;*/
+    background: white;
+    font-family: "Open Sans", arial;
+    font-weight: normal;
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+
+.monitorGrid {
+    border: 1px solid red;
+    padding: 20px;
+    min-height: 100%;
+    display: flex;
+    /* change flex-direction from column to row will work */
+    flex-direction: column;
+}

@@ -3,7 +3,6 @@ package br.com.azindustria.azsim.core.lazy;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -15,8 +14,12 @@ import java.util.Map;
 @Component
 public class CustomLazyDataModel<T, ID, R extends PagingAndSortingRepository<T, ID>> extends LazyDataModel<T> {
 
-    @Autowired
     R repository;
+
+    @Override
+    public int count(Map<String, FilterMeta> map) {
+        return 0;
+    }
 
     @Override
     public List<T> load(int first, int pageSize, Map<String, SortMeta> sortMap, Map<String, FilterMeta> filterMap) {

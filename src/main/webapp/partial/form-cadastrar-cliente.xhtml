@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+
+    <h:body>
+
+        <h:form id="clienteForm">
+
+            <h2><i class="pi pi-user-plus" style="font-size: 2rem"></i> Cadastro de Clientes</h2>
+
+            <p:tabView id="tabViewCadastroCliente">
+
+                <p:tab title="Dados Básicos">
+
+                    <!-- ***************************************************** -->
+                    <!-- CADASTRO DE DADOS BÁSICOS -->
+                    <!-- ***************************************************** -->
+
+                    <h3><i class="pi pi-user-edit" style="font-size: 1rem"></i> Dados Básicos do Cliente</h3>
+
+                    <div class="ui-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-1">
+                            <label class="p-text-bold" for="id">Código</label>
+                            <p:inputText id="id" type="text" value="#{clienteMB.cliente.id}" label="Código" disabled="true"/>
+                            <p:inputText id="hid" type="hidden" value="#{clienteMB.cliente.id}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2">
+                            <label class="p-text-bold" for="unidade">Unidade</label>
+                            <p:selectOneMenu id="unidade" value="#{clienteMB.cliente.unidade}" required="true"
+                                             label="Unidade" disabled="${clienteMB.viewOnly}">
+                                <f:selectItem itemLabel="SELECIONE" itemValue="#{null}"/>
+                                <f:selectItem itemLabel="MONTENEGRO" itemValue="MONTENEGRO"/>
+                                <f:selectItem itemLabel="LAJEADO" itemValue="LAJEADO"/>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-1">
+                            <label class="p-text-bold" for="codigoHabil">Hábil</label>
+                            <p:inputText id="codigoHabil" type="text" value="#{clienteMB.cliente.habil}" maxlength="20"
+                                         label="Código Hábil" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-1">
+                            <label class="p-text-bold" for="codigoCondor">Condor</label>
+                            <p:inputText id="codigoCondor" type="text" value="#{clienteMB.cliente.condor}" maxlength="20"
+                                         label="Código Condor" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2">
+                            <label class="p-text-bold" for="natureza">Natureza</label>
+                            <p:selectOneMenu id="natureza" value="#{clienteMB.cliente.natureza}"
+                                             label="Natureza" disabled="${clienteMB.viewOnly}">
+                                <p:ajax listener="#{clienteMB.changeMask()}" event="change"
+                                        update="documento" process="@this"/>
+                                <f:selectItem itemLabel="FÍSICA" itemValue="FISICA"/>
+                                <f:selectItem itemLabel="JURÍDICA" itemValue="JURIDICA"/>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <label class="p-text-bold" for="documento">CPF/CPNPJ</label>
+                            <p:inputMask id="documento" type="text" value="#{clienteMB.cliente.documento}" maxlength="20"
+                                         required="true" label="Documento"
+                                         mask="#{clienteMB.documentoMask}" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2">
+                            <label class="p-text-bold" for="inscMunicipal">Incrição Municipal</label>
+                            <p:inputText id="inscMunicipal" type="text" maxlength="20"
+                                         value="#{clienteMB.cliente.inscMunicipal}"
+                                         label="Inscrição Municipal" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-6">
+                            <label class="p-text-bold" for="nome">Nome/Razão Social</label>
+                            <p:inputText id="nome" type="text" value="#{clienteMB.cliente.nome}" maxlength="255"
+                                         required="true"
+                                         label="Nome/Razão Social" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-6">
+                            <label class="p-text-bold" for="nomeFantasia">Nome Fantasia</label>
+                            <p:inputText id="nomeFantasia" type="text" maxlength="255"
+                                         value="#{clienteMB.cliente.nomeFantasia}"
+                                         label="Nome Fantasia" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4">
+                            <label class="p-text-bold" for="endereco">Endereço</label>
+                            <p:inputText id="endereco" type="text" value="#{clienteMB.cliente.endereco}" maxlength="255"
+                                         label="Endereço" class="p-text-uppercase" widgetVar="endereco" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-3">
+                            <label class="p-text-bold" for="bairro">Bairro</label>
+                            <p:inputText id="bairro" type="text" value="#{clienteMB.cliente.bairro}" maxlength="100"
+                                         label="Bairro" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2">
+                            <label class="p-text-bold" for="cidade">Cidade</label>
+                            <p:inputText id="cidade" type="text" value="#{clienteMB.cliente.cidade}" maxlength="100"
+                                         label="Cidade" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-1">
+                            <label class="p-text-bold" for="uf">UF</label>
+                            <p:inputText id="uf" type="text" value="#{clienteMB.cliente.uf}" label="UF" maxlength="2"
+                                         class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-2">
+                            <label class="p-text-bold" for="cep">Cep</label>
+                            <p:inputMask id="cep" type="text" value="#{clienteMB.cliente.cep}" maxlength="10"
+                                         label="Cep" mask="99999-999" disabled="${clienteMB.viewOnly}"/>
+
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-12">
+                            <label class="p-text-bold" for="obs">Observações</label>
+                            <p:inputTextarea id="obs" rows="4" value="#{clienteMB.cliente.observacao}" maxlength="600"
+                                             label="OBS" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                    </div>
+
+                    <h3><i class="pi pi-exclamation-circle" style="font-size: 1rem"></i> Procedimentos de Atendimento</h3>
+
+                    <div class="ui-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-12">
+                            <p:inputTextarea id="procedimentos" rows="6" value="#{clienteMB.cliente.procedimento}" maxlength="4000"
+                                             label="Procedimentos" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+                    </div>
+
+                </p:tab>
+
+                <p:tab title="Contatos">
+
+                    <!-- ***************************************************** -->
+                    <!-- CADASTRO DE CONTATO -->
+                    <!-- ***************************************************** -->
+
+
+                    <h3><i class="pi pi-phone" style="font-size: 1rem"></i> Contatos</h3>
+
+                    <div class="ui-fluid p-formgrid p-grid">
+
+                        <h:panelGroup id="pnlContato">
+                            <div class="p-field p-col-12  p-md-12">
+                                <p:dataTable id="tblContato"
+                                             widgetVar="tblContato"
+                                             var="itemContato"
+                                             value="#{clienteMB.cliente.contatos}"
+                                             editable="true" rowKey="#{itemContato.nome}"
+                                             selection="#{clienteMB.selectedContatos}">
+                                    <f:facet name="header">
+                                        Cadastrar Contato
+                                    </f:facet>
+
+                                    <p:ajax event="rowSelect" update="clienteForm:tabViewCadastroCliente:delete-contatos-button"/>
+                                    <p:ajax event="rowUnselect" update="clienteForm:tabViewCadastroCliente:delete-contatos-button"/>
+                                    <p:ajax event="rowSelectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-contatos-button"/>
+                                    <p:ajax event="rowUnselectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-contatos-button"/>
+                                    <p:ajax event="toggleSelect" update="clienteForm:tabViewCadastroCliente:delete-contatos-button"/>
+
+                                    <p:column selectionMode="multiple" exportable="false" width="50"></p:column>
+
+                                    <p:column headerText="Nome" width="150">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.nome}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemContato.nome}" style="width:100%" class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Telefone">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.telefone}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemContato.telefone}" mask="(99)99999-9999"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Senha">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.senha}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemContato.senha}" style="width:100%" class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Contra-Senha">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.contraSenha}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemContato.contraSenha}" style="width:100%" class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Data Nascimento">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.dataNascimento}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemContato.dataNascimento}" mask="99/99/9999" validateMask="true"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Observação">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemContato.observacao}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemContato.observacao}" style="width:100%" class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column style="width:6rem" rendered="${!clienteMB.viewOnly}">
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </h:panelGroup>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton value="Novo"
+                                             actionListener="#{clienteMB.adicionarNovoContato()}"
+                                             icon="pi pi-plus"
+                                             process="@this"
+                                             styleClass="rounded-button ui-button-secondary"
+                                             update=":clienteForm:manage-contato-content"
+                                             oncomplete="PF('cadastrarContatoDialog').show()"
+                                             rendered="${!clienteMB.viewOnly}">
+                                <p:resetInput target=":clienteForm:manage-contato-content" />
+                            </p:commandButton>
+
+                        </div>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton id="delete-contatos-button" value="#{clienteMB.deleteContatoButtonMessage}"
+                                             actionListener="#{clienteMB.deleteSelectedContatos()}"
+                                             icon="pi pi-trash"
+                                             styleClass="rounded-button ui-button-danger"
+                                             disabled="#{!clienteMB.hasSelectedContatos()}"
+                                             rendered="${!clienteMB.viewOnly}"
+                                             update="@form">
+                                <p:confirm header="Confirmar" message="Excluir contatos selecionados?"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </div>
+
+                    </div>
+
+                </p:tab>
+
+                <p:tab title="Setorização">
+
+                    <!-- ***************************************************** -->
+                    <!-- CADASTRO DE SETORIZAÇÃO -->
+                    <!-- ***************************************************** -->
+
+
+                    <h3><i class="pi pi-sitemap" style="font-size: 1rem"></i> Setorização</h3>
+
+                    <div class="ui-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-3">
+                            <label class="p-text-bold" for="monitoramento_codificador">Codificador</label>
+                            <p:inputText id="monitoramento_codificador" type="text"
+                                         value="#{clienteMB.cliente.central.codificador.numero}"
+                                         label="Codificador"
+                                         class="p-text-uppercase"
+                                         disabled="${clienteMB.viewOnly}"/>
+                            <p:inputText id="hmonitoramentoId" type="hidden" value="#{clienteMB.cliente.central.id}"/>
+                        </div>
+
+                        <div class="p-field p-col-12 p-md-4">
+                            <label class="p-text-bold" for="monitoramento_central">Modelo da Central</label>
+                            <p:inputText id="monitoramento_central" type="text" maxlength="255"
+                                         value="#{clienteMB.cliente.central.modeloCentral}"
+                                         label="Modelo da Central" class="p-text-uppercase"
+                                         disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <!-- <div class="p-field p-col-6 p-md-6"></div> -->
+
+                        <div class="p-field p-col-12 p-md-12">
+                            <label class="p-text-bold" for="monitoramento_obs">Observações</label>
+                            <p:inputTextarea id="monitoramento_obs" rows="6"
+                                             value="#{clienteMB.cliente.central.observacao}" maxlength="600"
+                                             label="OBS" class="p-text-uppercase" disabled="${clienteMB.viewOnly}"/>
+                        </div>
+
+                        <h:panelGroup id="pnlSetorizacao">
+                            <div class="p-field p-col-12  p-md-12">
+                                <p:dataTable id="tblSetorizacao"
+                                             widgetVar="tblSetorizacao"
+                                             var="itemSetor"
+                                             value="#{clienteMB.cliente.central.setores}"
+                                             editable="true" rowKey="#{itemSetor.setor}"
+                                             selection="#{clienteMB.selectedSetores}"
+                                             disabled="${clienteMB.viewOnly}">
+                                    <f:facet name="header">
+                                        Cadastrar Setorização
+                                    </f:facet>
+
+                                    <p:ajax event="rowSelect" update="clienteForm:tabViewCadastroCliente:delete-setores-button"/>
+                                    <p:ajax event="rowUnselect" update="clienteForm:tabViewCadastroCliente:delete-setores-button"/>
+                                    <p:ajax event="rowSelectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-setores-button"/>
+                                    <p:ajax event="rowUnselectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-setores-button"/>
+                                    <p:ajax event="toggleSelect" update="clienteForm:tabViewCadastroCliente:delete-setores-button"/>
+
+                                    <p:column selectionMode="multiple" exportable="false" width="50"></p:column>
+
+                                    <p:column headerText="Setor" width="50">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemSetor.setor}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemSetor.setor}"
+                                                                               required="true" class="p-text-uppercase"
+                                                                               mask="99" validateMask="true"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Local de instalação">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemSetor.localizacao}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemSetor.localizacao}"
+                                                                               style="width:100%"
+                                                                               label="Local de instalação"
+                                                                               class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Observações">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemSetor.observacao}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemSetor.observacao}"
+                                                                               style="width:100%"
+                                                                               label="Observações"
+                                                                               class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column style="width:6rem" rendered="${!clienteMB.viewOnly}">
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </h:panelGroup>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton value="Novo"
+                                             actionListener="#{clienteMB.adicionarNovoSetor()}"
+                                             styleClass="rounded-button ui-button-secondary"
+                                             icon="pi pi-plus"
+                                             process="@this"
+                                             update=":clienteForm:manage-setor-content"
+                                             oncomplete="PF('cadastrarSetorDialog').show()"
+                                             rendered="${!clienteMB.viewOnly}">
+                                <p:resetInput target=":clienteForm:manage-setor-content" />
+                            </p:commandButton>
+                        </div>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton id="delete-setores-button" value="#{clienteMB.deleteSetorButtonMessage}"
+                                             actionListener="#{clienteMB.deleteSelectedSetores()}"
+                                             icon="pi pi-trash"
+                                             styleClass="rounded-button ui-button-danger"
+                                             disabled="#{!clienteMB.hasSelectedSetores()}"
+                                             update="@form"
+                                             rendered="${!clienteMB.viewOnly}">
+                                <p:confirm header="Confirmar" message="Excluir setores selecionados?"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </div>
+
+                    </div>
+
+                </p:tab>
+
+                <p:tab title="Viagens">
+
+                    <!-- ***************************************************** -->
+                    <!-- CADASTRO DE VIAGEM -->
+                    <!-- ***************************************************** -->
+
+
+                    <h3><i class="pi pi-sun" style="font-size: 1rem"></i> Viagens</h3>
+
+
+                    <div class="ui-fluid p-formgrid p-grid">
+
+                        <h:panelGroup id="pnlViagem">
+                            <div class="p-field p-col-12  p-md-12">
+                                <p:dataTable id="tblViagem"
+                                             widgetVar="tblViagem"
+                                             var="itemViagem"
+                                             value="#{clienteMB.cliente.viagens}"
+                                             editable="true" rowKey="#{itemContato.dataNotificacaoSaida}"
+                                             selection="#{clienteMB.selectedViagens}">
+                                    <f:facet name="header">
+                                        Cadastrar Viagem
+                                    </f:facet>
+
+                                    <p:ajax event="rowSelect" update="clienteForm:tabViewCadastroCliente:delete-viagem-button"/>
+                                    <p:ajax event="rowUnselect" update="clienteForm:tabViewCadastroCliente:delete-viagem-button"/>
+                                    <p:ajax event="rowSelectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-viagem-button"/>
+                                    <p:ajax event="rowUnselectCheckbox" update="clienteForm:tabViewCadastroCliente:delete-viagem-button"/>
+                                    <p:ajax event="toggleSelect" update="clienteForm:tabViewCadastroCliente:delete-viagem-button"/>
+
+                                    <p:column selectionMode="multiple" exportable="false" width="50"></p:column>
+
+                                    <p:column headerText="Nome" width="150">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemViagem.nomeContatoNotificacaoSaida}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{itemViagem.nomeContatoNotificacaoSaida}"
+                                                                               style="width:100%"
+                                                                               class="p-text-uppercase"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Data saída">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemViagem.dataSaida}" class="p-text-uppercase">
+                                                <f:convertDateTime pattern = "dd/MM/yyyy hh:mm:ss" />
+                                            </h:outputText></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemViagem.dataSaida}"
+                                                                               mask="99/99/9999 99:99:99" validateMask="true">
+                                                <f:convertDateTime pattern = "dd/MM/yyyy hh:mm:ss" />
+                                            </p:inputMask>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Data volta">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemViagem.dataVolta}" class="p-text-uppercase">
+                                                <f:convertDateTime pattern = "dd/MM/yyyy hh:mm:ss" />
+                                            </h:outputText></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemViagem.dataVolta}"
+                                                                               mask="99/99/9999 99:99:99" validateMask="true">
+                                                <f:convertDateTime pattern = "dd/MM/yyyy hh:mm:ss" />
+                                            </p:inputMask>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Data confirmação da volta">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{itemViagem.dataEncerramento}" class="p-text-uppercase"/></f:facet>
+                                            <f:facet name="input"><p:inputMask value="#{itemViagem.dataEncerramento}"
+                                                                               mask="99/99/9999 99:99:99" validateMask="true">
+                                                <f:convertDateTime pattern = "dd/mm/yyyy hh:mm:ss" />
+                                            </p:inputMask>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column style="width:6rem" rendered="${!clienteMB.viewOnly}">
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </h:panelGroup>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton value="Novo"
+                                             actionListener="#{clienteMB.adicionarNovaViagem()}"
+                                             styleClass="rounded-button ui-button-secondary"
+                                             icon="pi pi-plus"
+                                             process="@this"
+                                             update=":clienteForm:manage-viagem-content"
+                                             oncomplete="PF('cadastrarViagemDialog').show()"
+                                             rendered="${!clienteMB.viewOnly}">
+                                <p:resetInput target=":clienteForm:manage-viagem-content" />
+                            </p:commandButton>
+                        </div>
+
+                        <div class="p-field p-col-12  p-md-1 no-print">
+                            <p:commandButton id="delete-viagem-button" value="#{clienteMB.deleteSetorButtonMessage}"
+                                             actionListener="#{clienteMB.deleteSelectedSetores()}"
+                                             icon="pi pi-trash"
+                                             styleClass="rounded-button ui-button-danger"
+                                             disabled="#{!clienteMB.hasSelectedSetores()}"
+                                             update="@form"
+                                             rendered="${!clienteMB.viewOnly}">
+                                <p:confirm header="Confirmar" message="Excluir viagens selecionadas?"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </div>
+
+                    </div>
+
+                </p:tab>
+
+            </p:tabView>
+
+            <p:messages id="msg_dados_basicos" autoUpdate="true" closable="true" />
+
+            <!-- ***************************************************** -->
+            <!-- SALVAR | NOVO | EXCLUIR CLIENTE -->
+            <!-- ***************************************************** -->
+
+            <h:panelGroup style="margin: 1em 1em 1em 1em" styleClass="no-print">
+
+                <p:commandButton icon="pi pi-save" value="Salvar"
+                                 update="clienteForm"
+                                 process="@form"
+                                 action="#{clienteMB.salvar()}"
+                                 rendered="${!clienteMB.viewOnly}"/>
+
+                <p:commandButton icon="pi pi-user-plus" value="Novo" process="@this" update="clienteForm"
+                                 action="#{clienteMB.novo()}" styleClass="ui-button-info" style="margin-left: .5em"
+                                 rendered="${!clienteMB.viewOnly}">
+                    <p:confirm header="Confirmação"
+                               message="Tem certeza de que deseja continuar?  &lt;br/&gt;&lt;b&gt;Dados não salvos serão perdidos!&lt;b/&gt;"
+                               escape="false" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+
+                <p:commandButton icon="pi pi-trash" value="Excluir" styleClass="ui-button-danger" style="margin-left: .5em"
+                                 rendered="${!clienteMB.viewOnly}"/>
+            </h:panelGroup>
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+
+
+            <!-- ***************************************************** -->
+            <!-- DIALOG CADASTRO DE CONTATO -->
+            <!-- ***************************************************** -->
+
+
+            <p:dialog header="Cadastrar contato" showEffect="fade" modal="false" widgetVar="cadastrarContatoDialog" responsive="true">
+                <p:outputPanel id="manage-contato-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty clienteMB.selectedContato}">
+                        <div class="p-field">
+                            <p:outputLabel for="nome-contato">Nome</p:outputLabel>
+                            <p:inputText id="nome-contato" value="#{clienteMB.selectedContato.nome}"
+                                         required="true" class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="fone-contato">Telefone</p:outputLabel>
+                            <p:inputMask id="fone-contato" value="#{clienteMB.selectedContato.telefone}"
+                                         mask="(99)99999-9999" validateMask="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="senha-contato">Senha</p:outputLabel>
+                            <p:inputText id="senha-contato" value="#{clienteMB.selectedContato.senha}"
+                                         class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="contra-senha-contato">Contra-Senha</p:outputLabel>
+                            <p:inputText id="contra-senha-contato" value="#{clienteMB.selectedContato.contraSenha}"
+                                         class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="data-nascimento-contato">Data Nascimento</p:outputLabel>
+                            <p:inputMask id="data-nascimento-contato" value="#{clienteMB.selectedContato.dataNascimento}"
+                                         class="p-text-uppercase"
+                                         mask="99/99/9999" validateMask="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="observacao-contato">Observações</p:outputLabel>
+                            <p:inputText id="observacao-contato" value="#{clienteMB.selectedContato.observacao}"
+                                         class="p-text-uppercase"/>
+                        </div>
+
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check"
+                                     actionListener="#{clienteMB.salvarContato()}"
+                                     update=":clienteForm:tabViewCadastroCliente:tblContato manage-contato-content" process="manage-contato-content @this"/>
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('cadastrarContatoDialog').hide()" class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+
+
+            <!-- ***************************************************** -->
+            <!-- DIALOG CADASTRO DE SETOR -->
+            <!-- ***************************************************** -->
+
+
+            <p:dialog header="Cadastrar setor" showEffect="fade" modal="false" widgetVar="cadastrarSetorDialog" responsive="true">
+                <p:outputPanel id="manage-setor-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty clienteMB.selectedSetor}">
+                        <div class="p-field">
+                            <p:outputLabel for="setor">Setor</p:outputLabel>
+                            <p:inputMask id="setor" value="#{clienteMB.selectedSetor.setor}"
+                                         required="true" class="p-text-uppercase"
+                                         mask="99" validateMask="true"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="localizacao">Local de Instalação</p:outputLabel>
+                            <p:inputText id="localizacao" value="#{clienteMB.selectedSetor.localizacao}"
+                                         required="true" class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="observacao">Observações</p:outputLabel>
+                            <p:inputText id="observacao" value="#{clienteMB.selectedSetor.observacao}" class="p-text-uppercase"/>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check"
+                                     actionListener="#{clienteMB.salvarSetor()}"
+                                     update=":clienteForm:tabViewCadastroCliente:tblSetorizacao manage-setor-content" process="manage-setor-content @this"/>
+
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('cadastrarSetorDialog').hide()" class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+
+
+            <!-- ***************************************************** -->
+            <!-- DIALOG CADASTRO DE VIAGEM -->
+            <!-- ***************************************************** -->
+
+
+            <p:dialog header="Cadastrar viagem" showEffect="fade" modal="false" widgetVar="cadastrarViagemDialog" responsive="true" width="600">
+                <p:outputPanel id="manage-viagem-content" class="ui-fluid">
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="nome-notificacao-saida-viagem">Nome do notificante</p:outputLabel>
+                            <p:inputText id="nome-notificacao-saida-viagem" value="#{clienteMB.selectedViagem.nomeContatoNotificacaoSaida}"
+                                         required="true" class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="observacao-viagem">Observação</p:outputLabel>
+                            <p:inputTextarea id="observacao-viagem" rows="5" value="#{clienteMB.selectedViagem.observacao}" maxlength="4000"
+                                             class="p-text-uppercase"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="data-notificacao-saida-viagem">Data saída</p:outputLabel>
+                            <p:inputMask id="data-notificacao-saida-viagem" value="#{clienteMB.selectedViagem.dataSaida}"
+                                         mask="99/99/9999 99:99:99" validateMask="true">
+                                <f:convertDateTime pattern = "dd/mm/yyyy hh:mm:ss" />
+                            </p:inputMask>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="data-notificacao-volta-viagem">Data volta</p:outputLabel>
+                            <p:inputMask id="data-notificacao-volta-viagem" value="#{clienteMB.selectedViagem.dataVolta}"
+                                         mask="99/99/9999 99:99:99" validateMask="true">
+                                <f:convertDateTime pattern = "dd/mm/yyyy hh:mm:ss" timeZone="" />
+                            </p:inputMask>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="procedimento-viagem">Procedimento</p:outputLabel>
+                            <p:inputTextarea id="procedimento-viagem" rows="10" value="#{clienteMB.selectedViagem.procedimento}" maxlength="4000"
+                                             class="p-text-uppercase"/>
+                        </div>
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check"
+                                     actionListener="#{clienteMB.salvarViagem()}"
+                                     update=":clienteForm:tabViewCadastroCliente:tblContato manage-viagem-content" process="manage-viagem-content @this"/>
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('cadastrarViagemDialog').hide()" class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+
+        </h:form>
+
+    </h:body>
+
+</f:view>
+
+</html>
+
