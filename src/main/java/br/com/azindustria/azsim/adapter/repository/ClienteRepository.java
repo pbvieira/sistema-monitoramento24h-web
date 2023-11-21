@@ -1,0 +1,51 @@
+package br.com.azindustria.azsim.adapter.repository;
+
+import br.com.azindustria.azsim.adapter.repository.model.ClienteDocument;
+import br.com.azindustria.azsim.adapter.repository.mongo.ClienteMongoRepository;
+import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
+import br.com.azindustria.azsim.core.port.out.GestaoClienteRepository;
+import br.com.azindustria.azsim.mapper.ClienteMapper;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Profile("!test")
+@Repository
+public class ClienteRepository implements GestaoClienteRepository {
+
+    ClienteMongoRepository clienteMongoRepository;
+
+    public ClienteRepository(ClienteMongoRepository clienteMongoRepository) {
+        this.clienteMongoRepository = clienteMongoRepository;
+    }
+
+    @Override
+    public List<Cliente> findAll() {
+        List<ClienteDocument> clienteDocuments = clienteMongoRepository.findAll();
+        return clienteDocuments.stream().map(ClienteMapper.INSTANCE::toCliente).toList();
+    }
+
+    @Override
+    public Cliente findById(String id) {
+        return ClienteMapper.INSTANCE.toCliente(clienteMongoRepository.findById(id).orElse(null));
+    }
+
+    @Override
+    public List<Cliente> findByNomeOrNomeFantasia(String nome, String nomeFantasia) {
+        List<ClienteDocument> clienteDocuments = clienteMongoRepository.findByNomeLikeOrNomeFantasiaLike(nome, nomeFantasia);
+        return clienteDocuments.stream().map(ClienteMapper.INSTANCE::toCliente).toList();
+    }
+
+    @Override
+    public Cliente findOneByCentralCodificadorNumero(Integer codificador) {
+        return ClienteMapper.INSTANCE.toCliente(clienteMongoRepository.findOneByCentralCodificador(codificador));
+    }
+
+    @Override
+    public Cliente save(Cliente cliente) {
+        ClienteDocument clienteDocument = ClienteMapper.INSTANCE.toClienteDocument(cliente);
+        clienteDocument = clienteMongoRepository.save(clienteDocument);
+        return ClienteMapper.INSTANCE.toCliente(clienteDocument);
+    }
+}

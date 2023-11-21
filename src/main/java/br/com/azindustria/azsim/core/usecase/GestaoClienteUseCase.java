@@ -1,0 +1,38 @@
+package br.com.azindustria.azsim.core.usecase;
+
+import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
+import br.com.azindustria.azsim.core.port.in.GestaoClientePort;
+import br.com.azindustria.azsim.core.port.out.GestaoClienteRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class GestaoClienteUseCase implements GestaoClientePort {
+
+    GestaoClienteRepository gestaoClienteRepository;
+
+    public GestaoClienteUseCase(GestaoClienteRepository gestaoClienteRepository) {
+        this.gestaoClienteRepository = gestaoClienteRepository;
+    }
+
+    @Override
+    public List<Cliente> listar() {
+        return gestaoClienteRepository.findAll();
+    }
+
+    @Override
+    public Cliente buscarPorId(String id) {
+        return gestaoClienteRepository.findById(id);
+    }
+
+    @Override
+    public List<Cliente> buscarPorNome(String nome) {
+        return gestaoClienteRepository.findByNomeOrNomeFantasia(nome, nome);
+    }
+
+    @Override
+    public Cliente salvar(Cliente cliente) {
+        return gestaoClienteRepository.save(cliente);
+    }
+}
