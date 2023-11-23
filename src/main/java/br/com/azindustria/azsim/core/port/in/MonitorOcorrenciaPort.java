@@ -4,6 +4,6 @@ import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 
 public interface MonitorOcorrenciaPort {
 
-    Ocorrencia salvar(Ocorrencia ocorrencia);
+    Ocorrencia save(Ocorrencia ocorrencia);
 
 }

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface GestaoClientePort {
 
-    List<Cliente> listar();
+    List<Cliente> findAll();
 
-    Cliente buscarPorId(String id);
+    Cliente findById(String id);
 
-    List<Cliente> buscarPorNome(String nome);
+    List<Cliente> findByNomeOrNomeFantasia(String nome);
 
-    Cliente salvar(Cliente cliente);
+    Cliente save(Cliente cliente);
 }

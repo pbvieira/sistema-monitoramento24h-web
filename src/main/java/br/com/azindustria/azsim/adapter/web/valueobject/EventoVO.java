@@ -7,8 +7,6 @@ import java.util.Date;
 @Data
 public class EventoVO {
 
-    private String id;
-
     private String unidade;
 
     private Integer ctx;
@@ -19,7 +17,7 @@ public class EventoVO {
 
     private Long nrevento;
 
-    private Integer equipamento;
+    private Integer codificador;
 
     private String status;
 

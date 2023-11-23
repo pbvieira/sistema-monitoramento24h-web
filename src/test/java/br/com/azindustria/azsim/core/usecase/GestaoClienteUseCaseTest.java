@@ -87,7 +87,7 @@ class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
 
     @Test
     void cadastroClienteTest() {
-        cliente = gestaoClientePort.salvar(cliente);
+        cliente = gestaoClientePort.save(cliente);
         assertNotNull(cliente.getId());
         assertNotNull(cliente.getContatos());
         assertNotNull(cliente.getCentral());
@@ -96,22 +96,22 @@ class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
 
     @Test
     void buscarPorNomeTest() {
-        cliente = gestaoClientePort.salvar(cliente);
-        List<Cliente> nomes = gestaoClientePort.buscarPorNome("nome");
+        cliente = gestaoClientePort.save(cliente);
+        List<Cliente> nomes = gestaoClientePort.findByNomeOrNomeFantasia("nome");
         assertTrue(nomes.size() > 0);
     }
 
     @Test
     void buscarPorIdTest() {
-        cliente = gestaoClientePort.salvar(cliente);
-        Cliente buscarPorId = gestaoClientePort.buscarPorId(cliente.getId());
+        cliente = gestaoClientePort.save(cliente);
+        Cliente buscarPorId = gestaoClientePort.findById(cliente.getId());
         assertNotNull(buscarPorId);
     }
 
     @Test
     void listarTest() {
-        cliente = gestaoClientePort.salvar(cliente);
-        List<Cliente> nomes = gestaoClientePort.listar();
+        cliente = gestaoClientePort.save(cliente);
+        List<Cliente> nomes = gestaoClientePort.findAll();
         assertTrue(nomes.size() > 0);
     }
 

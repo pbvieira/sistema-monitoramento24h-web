@@ -26,7 +26,7 @@ public class ClienteController {
 
     @GetMapping
     ResponseEntity<List<ClienteVO>> listar() {
-        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.listar());
+        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.findAll());
         if (CollectionUtils.isEmpty(clienteVOS)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -35,7 +35,7 @@ public class ClienteController {
 
     @GetMapping(params = {"nome"})
     ResponseEntity<List<ClienteVO>> buscarPorNome(@RequestParam String nome) {
-        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.buscarPorNome(nome));
+        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.findByNomeOrNomeFantasia(nome));
         if (CollectionUtils.isEmpty(clienteVOS)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -44,7 +44,7 @@ public class ClienteController {
 
     @GetMapping("{id}")
     ResponseEntity<ClienteVO> buscarPorId(@PathVariable String id) {
-        ClienteVO clienteVO = ClienteMapper.INSTANCE.toClienteVO(gestaoClientePort.buscarPorId(id));
+        ClienteVO clienteVO = ClienteMapper.INSTANCE.toClienteVO(gestaoClientePort.findById(id));
         if (isNull(clienteVO)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -53,7 +53,7 @@ public class ClienteController {
 
     @PostMapping
     ResponseEntity<ClienteVO> salvar(@Validated @RequestBody ClienteVO clienteVO) {
-        Cliente cliente = gestaoClientePort.salvar(ClienteMapper.INSTANCE.toCliente(clienteVO));
+        Cliente cliente = gestaoClientePort.save(ClienteMapper.INSTANCE.toCliente(clienteVO));
         return new ResponseEntity<>(ClienteMapper.INSTANCE.toClienteVO(cliente), HttpStatus.OK);
     }
 

@@ -26,7 +26,7 @@ public class EventoDocument {
     private Long nrevento;
 
     @Indexed
-    private Integer equipamento;
+    private Integer codificador;
 
     @Indexed
     private String status;

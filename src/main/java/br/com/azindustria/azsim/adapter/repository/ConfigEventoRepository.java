@@ -1,5 +1,6 @@
 package br.com.azindustria.azsim.adapter.repository;
 
+import br.com.azindustria.azsim.adapter.repository.model.ConfigEventoDocument;
 import br.com.azindustria.azsim.adapter.repository.mongo.ConfigEventoMongoRepository;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.ConfigEvento;
 import br.com.azindustria.azsim.core.port.out.GestaoConfigEventoRepository;
@@ -36,6 +37,8 @@ public class ConfigEventoRepository implements GestaoConfigEventoRepository {
 
     @Override
     public ConfigEvento save(ConfigEvento configEvento) {
-        return null;
+        ConfigEventoDocument configEventoDocument = ConfigEventoMapper.INSTANCE.toConfigEventoDocument(configEvento);
+        configEventoDocument = configEventoMongoRepository.save(configEventoDocument);
+        return ConfigEventoMapper.INSTANCE.toConfigEvento(configEventoDocument);
     }
 }

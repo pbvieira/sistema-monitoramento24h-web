@@ -17,22 +17,22 @@ public class GestaoClienteUseCase implements GestaoClientePort {
     }
 
     @Override
-    public List<Cliente> listar() {
+    public List<Cliente> findAll() {
         return gestaoClienteRepository.findAll();
     }
 
     @Override
-    public Cliente buscarPorId(String id) {
+    public Cliente findById(String id) {
         return gestaoClienteRepository.findById(id);
     }
 
     @Override
-    public List<Cliente> buscarPorNome(String nome) {
+    public List<Cliente> findByNomeOrNomeFantasia(String nome) {
         return gestaoClienteRepository.findByNomeOrNomeFantasia(nome, nome);
     }
 
     @Override
-    public Cliente salvar(Cliente cliente) {
+    public Cliente save(Cliente cliente) {
         return gestaoClienteRepository.save(cliente);
     }
 }

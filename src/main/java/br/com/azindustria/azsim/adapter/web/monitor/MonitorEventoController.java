@@ -28,7 +28,7 @@ public class MonitorEventoController {
 
     @PostMapping
     ResponseEntity<EventoVO> salvar(@Validated @RequestBody EventoVO eventoRequest) {
-        Evento evento = monitorEventoPort.salvar(EventoMapper.INSTANCE.toEvento(eventoRequest));
+        Evento evento = monitorEventoPort.save(EventoMapper.INSTANCE.toEvento(eventoRequest));
         EventoVO eventoResponse = EventoMapper.INSTANCE.toEventoVO(evento);
         this.simpMessagingTemplate.convertAndSend("/topic/eventos", eventoResponse);
         return new ResponseEntity<>(HttpStatus.OK);

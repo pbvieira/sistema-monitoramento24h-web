@@ -11,8 +11,6 @@ import static java.util.Objects.nonNull;
 @Data
 public class Evento {
 
-    private String id;
-
     private String unidade;
 
     private Integer ctx;
@@ -23,7 +21,7 @@ public class Evento {
 
     private Long nrevento;
 
-    private Integer equipamento;
+    private Integer codificador;
 
     private String status;
 
@@ -55,32 +53,39 @@ public class Evento {
 
     public void complementarDados(Cliente cliente, ConfigEvento configEvento) {
         this.destatus = "Status não localizado";
-        this.nmcliente = String.format("%s (codificador não localizado)", this.equipamento);
+        this.nmcliente = String.format("%s (codificador não localizado)", this.codificador);
         this.alarme = 0;
+        Integer numeroSetor = null;
+
+        if (nonNull(configEvento)) {
+            if (nonNull(configEvento.getSetor())) {
+                numeroSetor = Integer.parseInt(configEvento.getSetor(), 16);
+            }
+            this.destatus = configEvento.getDescricao();
+        }
 
         if (nonNull(cliente)) {
             this.idcliente = cliente.getId();
             this.nmcliente = cliente.getNome();
+            this.endereco = cliente.getEndereco();
+            this.cidade = cliente.getCidade();
+            if (nonNull(configEvento)) {
+                this.alarme = configEvento.getAlarme();
+            }
 
-            if (nonNull(cliente.getCentral()) && nonNull(cliente.getCentral().getSetores()) && nonNull(this.numsetor)) {
+            if (nonNull(cliente.getCentral()) && nonNull(cliente.getCentral().getSetores()) && nonNull(numeroSetor)) {
+                Integer finalNumeroSetor = numeroSetor;
                 Setor setor = cliente.getCentral().getSetores().stream()
-                        .filter(s -> s.getSetor().equals(this.numsetor))
+                        .filter(s -> s.getSetor().equals(finalNumeroSetor))
                         .findFirst().orElse(null);
 
                 if (nonNull(setor)) {
+                    this.numsetor = numeroSetor;
                     this.local = setor.getLocalizacao();
                 } else {
                     this.local = "Setor não cadastrado";
                 }
             }
-        }
-
-        if (nonNull(configEvento)) {
-            this.status = configEvento.getSts();
-            this.referencia = configEvento.getReferencia1();
-            this.destatus = configEvento.getDescricao();
-            this.alarme = configEvento.getAlarme();
-            this.numsetor = Integer.parseInt(configEvento.getSetor(), 16);
         }
     }
 }
