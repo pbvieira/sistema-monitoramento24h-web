@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ClienteMongoRepository extends MongoRepository<ClienteDocument, String> {
 
-    ClienteDocument findOneByCentralCodificador(Integer codificador);
+    ClienteDocument findOneByCodificador(Integer codificador);
 
     List<ClienteDocument> findByNomeLikeOrNomeFantasiaLike(String nome, String nomeFantasia);
 }

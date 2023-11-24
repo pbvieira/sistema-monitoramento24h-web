@@ -34,7 +34,7 @@ public class ClienteFakeRepository implements GestaoClienteRepository {
     }
 
     @Override
-    public Cliente findOneByCentralCodificadorNumero(Integer codificador) {
+    public Cliente findOneByCodificador(Integer codificador) {
         return null;
     }
 

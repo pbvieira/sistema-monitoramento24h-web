@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Collections;
 import java.util.Date;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
@@ -41,59 +43,61 @@ class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente();
-        cliente.setUnidade("montenegro");
-        cliente.setCodCondor("codHabil");
-        cliente.setCodHabil("codHabil");
-        cliente.setNatureza(NaturezaEnum.JURIDICA);
-        cliente.setDocumento("documento");
-        cliente.setInscMunicipal("insc municipal");
-        cliente.setNome("nome do cliente");
-        cliente.setNomeFantasia("nome fantasia");
-        cliente.setEndereco("endereco");
-        cliente.setBairro("bairro");
-        cliente.setCidade("cidade");
-        cliente.setUf("uf");
-        cliente.setCep("cep");
-        cliente.setObservacao("observacao");
-        cliente.setProcedimento("procedimento");
-        cliente.setProcedimentoPolicial("procedimento policial");
+        Cliente clienteExistente = gestaoClientePort.findOneByCodificador(CODIFICADOR);
 
-        Contato contato = new Contato();
-        contato.setNome("nome contato");
-        contato.setDataNascimento(new Date());
-        contato.setSenha("senha");
-        contato.setContraSenha("contra senha");
-        contato.setTelefone("(48) 99999-9999");
-        contato.setObservacao("observacao");
-        cliente.setContatos(Collections.singletonList(contato));
+        if (nonNull(clienteExistente)) {
+            cliente = clienteExistente;
+        } else {
+            cliente = new Cliente();
+            cliente.setUnidade("montenegro");
+            cliente.setCodCondor("codHabil");
+            cliente.setCodHabil("codHabil");
+            cliente.setNatureza(NaturezaEnum.JURIDICA);
+            cliente.setDocumento("documento");
+            cliente.setInscMunicipal("insc municipal");
+            cliente.setNome("nome do cliente");
+            cliente.setNomeFantasia("nome fantasia");
+            cliente.setEndereco("endereco");
+            cliente.setBairro("bairro");
+            cliente.setCidade("cidade");
+            cliente.setUf("uf");
+            cliente.setCep("cep");
+            cliente.setObservacao("observacao");
+            cliente.setProcedimento("procedimento");
+            cliente.setProcedimentoPolicial("procedimento policial");
 
-        Central central = new Central();
-        central.setModeloCentral("MTA980");
-        central.setObservacao("observacao");
-        central.setCodificador(CODIFICADOR);
+            Contato contato = new Contato();
+            contato.setNome("nome contato");
+            contato.setDataNascimento(new Date());
+            contato.setSenha("senha");
+            contato.setContraSenha("contra senha");
+            contato.setTelefone("(48) 99999-9999");
+            contato.setObservacao("observacao");
+            cliente.setContatos(Collections.singletonList(contato));
 
-        Setor setor = new Setor();
-        setor.setSetor(2);
-        setor.setLocalizacao("localizacao");
-        setor.setObservacao("observacao");
+            cliente.setModeloCentral("MTA980");
+            cliente.setObservacaoCentral("observacao");
+            cliente.setCodificador(CODIFICADOR);
 
-        central.setSetores(Collections.singletonList(setor));
+            Setor setor = new Setor();
+            setor.setSetor(2);
+            setor.setLocalizacao("localizacao");
+            setor.setObservacao("observacao");
+            cliente.setSetores(Collections.singletonList(setor));
 
-        cliente.setCentral(central);
+            Viagem viagem = new Viagem();
+            viagem.setNomeContatoNotificacaoSaida("NomeContatoNotificacaoSaida");
+            viagem.setNomeContatoNotificacaoVolta("NomeContatoNotificacaoVolta");
+            viagem.setDataSaida(new Date());
+            viagem.setDataVolta(new Date());
+            viagem.setDataEncerramento(new Date());
+            viagem.setObservacao("Observacao");
+            viagem.setProcedimento("Procedimento");
+            viagem.setObservacaoEncerramento("ObservacaoEncerramento");
 
-        Viagem viagem = new Viagem();
-        viagem.setNomeContatoNotificacaoSaida("NomeContatoNotificacaoSaida");
-        viagem.setNomeContatoNotificacaoVolta("NomeContatoNotificacaoVolta");
-        viagem.setDataSaida(new Date());
-        viagem.setDataVolta(new Date());
-        viagem.setDataEncerramento(new Date());
-        viagem.setObservacao("Observacao");
-        viagem.setProcedimento("Procedimento");
-        viagem.setObservacaoEncerramento("ObservacaoEncerramento");
-
-        cliente.setViagens(Collections.singletonList(viagem));
-        cliente = gestaoClientePort.save(cliente);
+            cliente.setViagens(Collections.singletonList(viagem));
+            cliente = gestaoClientePort.save(cliente);
+        }
 
         ConfigEvento configEvento1 = new ConfigEvento();
         configEvento1.setSts("2");
@@ -109,7 +113,10 @@ class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
         configEvento1.setDescricao("INVASAO SETOR");
         configEvento1.setCor("255");
 
-        gestaoConfigEventoRepository.save(configEvento1);
+        ConfigEvento stsAndReferencia1 = gestaoConfigEventoRepository.findByStsAndReferencia1(configEvento1.getSts(), configEvento1.getReferencia1());
+        if (isNull(stsAndReferencia1)) {
+            gestaoConfigEventoRepository.save(configEvento1);
+        }
 
         ConfigEvento configEvento2 = new ConfigEvento();
         configEvento2.setSts("2");
@@ -125,7 +132,10 @@ class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
         configEvento2.setDescricao("INVASAO SETOR");
         configEvento2.setCor("255");
 
-        gestaoConfigEventoRepository.save(configEvento2);
+        ConfigEvento stsAndReferencia2 = gestaoConfigEventoRepository.findByStsAndReferencia1(configEvento2.getSts(), configEvento2.getReferencia1());
+        if (isNull(stsAndReferencia2)) {
+            gestaoConfigEventoRepository.save(configEvento2);
+        }
     }
 
     @Test
@@ -174,7 +184,7 @@ class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
         evento.setNrevento(1L);
         evento.setCodificador(CODIFICADOR);
         evento.setStatus("2");
-        evento.setReferencia("03");
+        evento.setReferencia("04");
         evento.setDestatus("INVASAO SETOR");
         evento.setDataevento(new Date());
 
@@ -187,7 +197,7 @@ class MonitorEventoUseCaseTest extends AdapterRepositoryMongoConfig {
         assertEquals(1l, evento.getNrevento());
         assertEquals(CODIFICADOR, evento.getCodificador());
         assertEquals("2", evento.getStatus());
-        assertEquals("03", evento.getReferencia());
+        assertEquals("04", evento.getReferencia());
         assertEquals("Status não localizado", evento.getDestatus());
         assertNotNull(evento.getDataevento());
         assertEquals(cliente.getId(), evento.getIdcliente());

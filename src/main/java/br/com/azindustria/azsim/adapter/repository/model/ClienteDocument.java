@@ -1,9 +1,6 @@
 package br.com.azindustria.azsim.adapter.repository.model;
 
-import br.com.azindustria.azsim.core.domain.cliente.model.Central;
-import br.com.azindustria.azsim.core.domain.cliente.model.Contato;
-import br.com.azindustria.azsim.core.domain.cliente.model.NaturezaEnum;
-import br.com.azindustria.azsim.core.domain.cliente.model.Viagem;
+import br.com.azindustria.azsim.core.domain.cliente.model.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -58,7 +55,14 @@ public class ClienteDocument {
 
     private List<Contato> contatos;
 
-    private Central central;
+    private String modeloCentral;
+
+    private String observacaoCentral;
+
+    @Indexed(unique = true)
+    private Integer codificador;
+
+    private List<Setor> setores;
 
     private List<Viagem> viagens;
 
@@ -72,6 +76,6 @@ public class ClienteDocument {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUnidade(), getCodHabil(), getCodCondor(), getNatureza(), getDocumento(), getInscMunicipal(), getNome(), getNomeFantasia(), getEndereco(), getBairro(), getCidade(), getUf(), getCep(), getObservacao(), getProcedimento(), getProcedimentoPolicial());
+        return Objects.hash(getId(), getUnidade(), getCodHabil(), getCodCondor(), getNatureza(), getDocumento(), getInscMunicipal(), getNome(), getNomeFantasia(), getEndereco(), getBairro(), getCidade(), getUf(), getCep(), getObservacao(), getProcedimento(), getProcedimentoPolicial(), getModeloCentral(), getObservacaoCentral(), getCodificador());
     }
 }

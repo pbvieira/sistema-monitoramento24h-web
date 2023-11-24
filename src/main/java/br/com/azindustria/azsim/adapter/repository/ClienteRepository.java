@@ -2,6 +2,7 @@ package br.com.azindustria.azsim.adapter.repository;
 
 import br.com.azindustria.azsim.adapter.repository.model.ClienteDocument;
 import br.com.azindustria.azsim.adapter.repository.mongo.ClienteMongoRepository;
+import br.com.azindustria.azsim.core.domain.cliente.exception.CodificadorEmUsoException;
 import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
 import br.com.azindustria.azsim.core.port.out.GestaoClienteRepository;
 import br.com.azindustria.azsim.mapper.ClienteMapper;
@@ -9,6 +10,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static java.util.Objects.nonNull;
 
 @Profile("!test")
 @Repository
@@ -38,13 +41,18 @@ public class ClienteRepository implements GestaoClienteRepository {
     }
 
     @Override
-    public Cliente findOneByCentralCodificadorNumero(Integer codificador) {
-        return ClienteMapper.INSTANCE.toCliente(clienteMongoRepository.findOneByCentralCodificador(codificador));
+    public Cliente findOneByCodificador(Integer codificador) {
+        return ClienteMapper.INSTANCE.toCliente(clienteMongoRepository.findOneByCodificador(codificador));
     }
 
     @Override
     public Cliente save(Cliente cliente) {
         ClienteDocument clienteDocument = ClienteMapper.INSTANCE.toClienteDocument(cliente);
+        ClienteDocument clienteExistente = clienteMongoRepository.findOneByCodificador(clienteDocument.getCodificador());
+        if (nonNull(clienteExistente)) {
+            throw new CodificadorEmUsoException(String.format("Codificador %s já está em uso no cliente %s", clienteExistente.getCodificador(), clienteExistente.getNome()));
+        }
+
         clienteDocument = clienteMongoRepository.save(clienteDocument);
         return ClienteMapper.INSTANCE.toCliente(clienteDocument);
     }

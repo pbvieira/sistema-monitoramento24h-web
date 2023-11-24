@@ -35,4 +35,9 @@ public class GestaoClienteUseCase implements GestaoClientePort {
     public Cliente save(Cliente cliente) {
         return gestaoClienteRepository.save(cliente);
     }
+
+    @Override
+    public Cliente findOneByCodificador(Integer codificador) {
+        return gestaoClienteRepository.findOneByCodificador(codificador);
+    }
 }

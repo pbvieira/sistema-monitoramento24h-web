@@ -44,7 +44,13 @@ public class Cliente {
 
     private List<Contato> contatos;
 
-    private Central central;
+    private String modeloCentral;
+
+    private String observacaoCentral;
+
+    private Integer codificador;
+
+    private List<Setor> setores;
 
     private List<Viagem> viagens;
 
@@ -52,12 +58,12 @@ public class Cliente {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cliente that = (Cliente) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUnidade(), that.getUnidade()) && Objects.equals(getCodHabil(), that.getCodHabil()) && Objects.equals(getCodCondor(), that.getCodCondor()) && getNatureza() == that.getNatureza() && Objects.equals(getDocumento(), that.getDocumento()) && Objects.equals(getInscMunicipal(), that.getInscMunicipal()) && Objects.equals(getNome(), that.getNome()) && Objects.equals(getNomeFantasia(), that.getNomeFantasia()) && Objects.equals(getEndereco(), that.getEndereco()) && Objects.equals(getBairro(), that.getBairro()) && Objects.equals(getCidade(), that.getCidade()) && Objects.equals(getUf(), that.getUf()) && Objects.equals(getCep(), that.getCep()) && Objects.equals(getObservacao(), that.getObservacao()) && Objects.equals(getProcedimento(), that.getProcedimento()) && Objects.equals(getProcedimentoPolicial(), that.getProcedimentoPolicial());
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(getId(), cliente.getId()) && Objects.equals(getUnidade(), cliente.getUnidade()) && Objects.equals(getCodHabil(), cliente.getCodHabil()) && Objects.equals(getCodCondor(), cliente.getCodCondor()) && getNatureza() == cliente.getNatureza() && Objects.equals(getDocumento(), cliente.getDocumento()) && Objects.equals(getInscMunicipal(), cliente.getInscMunicipal()) && Objects.equals(getNome(), cliente.getNome()) && Objects.equals(getNomeFantasia(), cliente.getNomeFantasia()) && Objects.equals(getEndereco(), cliente.getEndereco()) && Objects.equals(getBairro(), cliente.getBairro()) && Objects.equals(getCidade(), cliente.getCidade()) && Objects.equals(getUf(), cliente.getUf()) && Objects.equals(getCep(), cliente.getCep()) && Objects.equals(getObservacao(), cliente.getObservacao()) && Objects.equals(getProcedimento(), cliente.getProcedimento()) && Objects.equals(getProcedimentoPolicial(), cliente.getProcedimentoPolicial()) && Objects.equals(getModeloCentral(), cliente.getModeloCentral()) && Objects.equals(getObservacaoCentral(), cliente.getObservacaoCentral()) && Objects.equals(getCodificador(), cliente.getCodificador());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUnidade(), getCodHabil(), getCodCondor(), getNatureza(), getDocumento(), getInscMunicipal(), getNome(), getNomeFantasia(), getEndereco(), getBairro(), getCidade(), getUf(), getCep(), getObservacao(), getProcedimento(), getProcedimentoPolicial());
+        return Objects.hash(getId(), getUnidade(), getCodHabil(), getCodCondor(), getNatureza(), getDocumento(), getInscMunicipal(), getNome(), getNomeFantasia(), getEndereco(), getBairro(), getCidade(), getUf(), getCep(), getObservacao(), getProcedimento(), getProcedimentoPolicial(), getModeloCentral(), getObservacaoCentral(), getCodificador());
     }
 }

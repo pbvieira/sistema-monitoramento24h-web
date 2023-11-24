@@ -73,9 +73,9 @@ public class Evento {
                 this.alarme = configEvento.getAlarme();
             }
 
-            if (nonNull(cliente.getCentral()) && nonNull(cliente.getCentral().getSetores()) && nonNull(numeroSetor)) {
+            if (nonNull(cliente.getSetores()) && nonNull(numeroSetor)) {
                 Integer finalNumeroSetor = numeroSetor;
-                Setor setor = cliente.getCentral().getSetores().stream()
+                Setor setor = cliente.getSetores().stream()
                         .filter(s -> s.getSetor().equals(finalNumeroSetor))
                         .findFirst().orElse(null);
 

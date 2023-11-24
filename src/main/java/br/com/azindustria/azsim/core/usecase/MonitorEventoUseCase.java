@@ -30,7 +30,7 @@ public class MonitorEventoUseCase implements MonitorEventoPort {
 
     @Override
     public Evento save(Evento evento) {
-        Cliente cliente = gestaoClienteRepository.findOneByCentralCodificadorNumero(evento.getCodificador());
+        Cliente cliente = gestaoClienteRepository.findOneByCodificador(evento.getCodificador());
         ConfigEvento configEvento = gestaoConfigEventoRepository.findByStsAndReferencia1(evento.getStatus(), evento.getReferencia());
         evento.complementarDados(cliente, configEvento);
         evento = monitorEventoRepository.save(evento);

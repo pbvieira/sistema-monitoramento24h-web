@@ -14,4 +14,6 @@ public interface GestaoClientePort {
     List<Cliente> findByNomeOrNomeFantasia(String nome);
 
     Cliente save(Cliente cliente);
+
+    Cliente findOneByCodificador(Integer codificador);
 }

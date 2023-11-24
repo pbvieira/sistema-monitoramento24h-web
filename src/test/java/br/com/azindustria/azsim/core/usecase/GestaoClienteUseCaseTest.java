@@ -13,10 +13,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
+
+    public static final int CODIFICADOR = 98657898;
 
     @Autowired
     GestaoClientePort gestaoClientePort;
@@ -31,86 +34,84 @@ class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente();
-        cliente.setUnidade("montenegro");
-        cliente.setCodCondor("codHabil");
-        cliente.setCodHabil("codHabil");
-        cliente.setNatureza(NaturezaEnum.JURIDICA);
-        cliente.setDocumento("documento");
-        cliente.setInscMunicipal("insc municipal");
-        cliente.setNome("nome do cliente");
-        cliente.setNomeFantasia("nome fantasia");
-        cliente.setEndereco("endereco");
-        cliente.setBairro("bairro");
-        cliente.setCidade("cidade");
-        cliente.setUf("uf");
-        cliente.setCep("cep");
-        cliente.setObservacao("observacao");
-        cliente.setProcedimento("procedimento");
-        cliente.setProcedimentoPolicial("procedimento policial");
+        Cliente clienteExistente = gestaoClientePort.findOneByCodificador(CODIFICADOR);
 
-        Contato contato = new Contato();
-        contato.setNome("nome contato");
-        contato.setDataNascimento(new Date());
-        contato.setSenha("senha");
-        contato.setContraSenha("contra senha");
-        contato.setTelefone("(48) 99999-9999");
-        contato.setObservacao("observacao");
-        cliente.setContatos(Collections.singletonList(contato));
+        if (nonNull(clienteExistente)) {
+            cliente = clienteExistente;
+        } else {
+            cliente = new Cliente();
+            cliente.setUnidade("montenegro");
+            cliente.setCodCondor("codHabil");
+            cliente.setCodHabil("codHabil");
+            cliente.setNatureza(NaturezaEnum.JURIDICA);
+            cliente.setDocumento("documento");
+            cliente.setInscMunicipal("insc municipal");
+            cliente.setNome("nome do cliente");
+            cliente.setNomeFantasia("nome fantasia");
+            cliente.setEndereco("endereco");
+            cliente.setBairro("bairro");
+            cliente.setCidade("cidade");
+            cliente.setUf("uf");
+            cliente.setCep("cep");
+            cliente.setObservacao("observacao");
+            cliente.setProcedimento("procedimento");
+            cliente.setProcedimentoPolicial("procedimento policial");
 
-        Central central = new Central();
-        central.setModeloCentral("MTA980");
-        central.setObservacao("observacao");
-        central.setCodificador(98657898);
+            Contato contato = new Contato();
+            contato.setNome("nome contato");
+            contato.setDataNascimento(new Date());
+            contato.setSenha("senha");
+            contato.setContraSenha("contra senha");
+            contato.setTelefone("(48) 99999-9999");
+            contato.setObservacao("observacao");
+            cliente.setContatos(Collections.singletonList(contato));
 
-        Setor setor = new Setor();
-        setor.setSetor(1);
-        setor.setLocalizacao("localizacao");
-        setor.setObservacao("observacao");
+            cliente.setModeloCentral("MTA980");
+            cliente.setObservacaoCentral("observacao");
+            cliente.setCodificador(CODIFICADOR);
 
-        central.setSetores(Collections.singletonList(setor));
+            Setor setor = new Setor();
+            setor.setSetor(2);
+            setor.setLocalizacao("localizacao");
+            setor.setObservacao("observacao");
+            cliente.setSetores(Collections.singletonList(setor));
 
-        cliente.setCentral(central);
+            Viagem viagem = new Viagem();
+            viagem.setNomeContatoNotificacaoSaida("NomeContatoNotificacaoSaida");
+            viagem.setNomeContatoNotificacaoVolta("NomeContatoNotificacaoVolta");
+            viagem.setDataSaida(new Date());
+            viagem.setDataVolta(new Date());
+            viagem.setDataEncerramento(new Date());
+            viagem.setObservacao("Observacao");
+            viagem.setProcedimento("Procedimento");
+            viagem.setObservacaoEncerramento("ObservacaoEncerramento");
 
-        Viagem viagem = new Viagem();
-        viagem.setNomeContatoNotificacaoSaida("NomeContatoNotificacaoSaida");
-        viagem.setNomeContatoNotificacaoVolta("NomeContatoNotificacaoVolta");
-        viagem.setDataSaida(new Date());
-        viagem.setDataVolta(new Date());
-        viagem.setDataEncerramento(new Date());
-        viagem.setObservacao("Observacao");
-        viagem.setProcedimento("Procedimento");
-        viagem.setObservacaoEncerramento("ObservacaoEncerramento");
-
-        cliente.setViagens(Collections.singletonList(viagem));
+            cliente.setViagens(Collections.singletonList(viagem));
+            cliente = gestaoClientePort.save(cliente);
+        }
     }
 
     @Test
     void cadastroClienteTest() {
-        cliente = gestaoClientePort.save(cliente);
         assertNotNull(cliente.getId());
         assertNotNull(cliente.getContatos());
-        assertNotNull(cliente.getCentral());
         assertNotNull(cliente.getViagens());
     }
 
     @Test
     void buscarPorNomeTest() {
-        cliente = gestaoClientePort.save(cliente);
         List<Cliente> nomes = gestaoClientePort.findByNomeOrNomeFantasia("nome");
         assertTrue(nomes.size() > 0);
     }
 
     @Test
     void buscarPorIdTest() {
-        cliente = gestaoClientePort.save(cliente);
         Cliente buscarPorId = gestaoClientePort.findById(cliente.getId());
         assertNotNull(buscarPorId);
     }
 
     @Test
     void listarTest() {
-        cliente = gestaoClientePort.save(cliente);
         List<Cliente> nomes = gestaoClientePort.findAll();
         assertTrue(nomes.size() > 0);
     }
