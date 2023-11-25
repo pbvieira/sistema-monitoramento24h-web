@@ -1,6 +1,7 @@
 package br.com.azindustria.azsim.core.usecase;
 
 import br.com.azindustria.azsim.AdapterRepositoryMongoConfig;
+import br.com.azindustria.azsim.core.domain.cliente.exception.CodificadorEmUsoException;
 import br.com.azindustria.azsim.core.domain.cliente.model.*;
 import br.com.azindustria.azsim.core.port.in.GestaoClientePort;
 import br.com.azindustria.container.MongoDbContainer;
@@ -14,8 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
 
@@ -96,6 +96,17 @@ class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
         assertNotNull(cliente.getId());
         assertNotNull(cliente.getContatos());
         assertNotNull(cliente.getViagens());
+    }
+
+    @Test
+    void cadastroClienteCodificadorEmUsoTest() {
+        Exception exception = assertThrows(CodificadorEmUsoException.class, () -> {
+            cliente = gestaoClientePort.save(cliente);
+        });
+
+        String expectedMessage = "Codificador 98657898 já está em uso no cliente nome do cliente";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
