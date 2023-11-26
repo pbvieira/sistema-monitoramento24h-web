@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/azsimdb
+      uri: mongodb://${user_db}:${pass_db}@${host_db}:27017/?authMechanism=DEFAULT&tls=false&authSource=${database_db}
 server:
   error:
     include-stacktrace: never
