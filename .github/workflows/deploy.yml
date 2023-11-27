@@ -38,6 +38,6 @@ jobs:
           mv build/libs/*.war build/libs/ROOT.war
         shell: bash
 
-    - name: Deploy
+    - name: Deploy Tomcat
         run: curl -v -u tomcat_username:tomcat_password -T build/libs/ROOT.war "http://www.azsim-monitoramento.com.br/manager/text/deploy?path=/"
         shell: bash
