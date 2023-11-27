@@ -40,6 +40,8 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.18'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     annotationProcessor 'org.projectlombok:lombok'
@@ -74,4 +76,8 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+tasks.war {
+    archiveFileName.set("api.war")
 }

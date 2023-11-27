@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Java Deploy Tomcat
 
 on:
   push:
@@ -31,13 +31,8 @@ jobs:
     - name: Build
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
-        arguments: build
-
-    - name: Rename to ROOT
-        run: |
-          mv build/libs/*.war build/libs/ROOT.war
-        shell: bash
+        arguments: war
 
     - name: Deploy Tomcat
-        run: curl -v -u tomcat_username:tomcat_password -T build/libs/ROOT.war "http://www.azsim-monitoramento.com.br/manager/text/deploy?path=/"
-        shell: bash
+      run: curl -v -u 'robot:tEOV8G?!tlyr?RR)' -T build/libs/api.war "http://www.azsim-monitoramento.com.br/manager/text/deploy?path=/api"
+      shell: bash
