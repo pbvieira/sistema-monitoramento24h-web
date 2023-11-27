@@ -104,7 +104,7 @@ class GestaoClienteUseCaseTest extends AdapterRepositoryMongoConfig {
             cliente = gestaoClientePort.save(cliente);
         });
 
-        String expectedMessage = "Codificador 98657898 já está em uso no cliente nome do cliente";
+        String expectedMessage = "XXXX Codificador 98657898 já está em uso no cliente nome do cliente";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
