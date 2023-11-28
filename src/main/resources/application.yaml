@@ -1,7 +1,9 @@
+server:
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /api
 spring:
   data:
     mongodb:
       uri: mongodb://${user_db}:${pass_db}@${host_db}:27017/?authMechanism=DEFAULT&tls=false&authSource=${database_db}
-server:
-  error:
-    include-stacktrace: never
