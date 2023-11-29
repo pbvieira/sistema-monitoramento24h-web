@@ -1,7 +1,8 @@
 package br.com.azindustria.container;
 
-import jakarta.validation.constraints.NotNull;
 import org.testcontainers.containers.GenericContainer;
+
+import javax.validation.constraints.NotNull;
 
 public class MongoDbContainer extends GenericContainer<MongoDbContainer> {
 

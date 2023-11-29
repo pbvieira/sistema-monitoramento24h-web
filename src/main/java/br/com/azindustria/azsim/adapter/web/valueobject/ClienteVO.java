@@ -4,9 +4,9 @@ import br.com.azindustria.azsim.core.domain.cliente.model.Contato;
 import br.com.azindustria.azsim.core.domain.cliente.model.NaturezaEnum;
 import br.com.azindustria.azsim.core.domain.cliente.model.Setor;
 import br.com.azindustria.azsim.core.domain.cliente.model.Viagem;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
