@@ -34,5 +34,8 @@ jobs:
         arguments: war
 
     - name: Deploy Tomcat
-      run: curl -v -u 'robot:tEOV8G?!tlyr?RR)' -T build/libs/api.war "http://www.azsim-monitoramento.com.br/manager/text/deploy?path=/api"
       shell: bash
+      env:
+        TOMCAT_USER: ${{ secrets.TOMCAT_USER }}
+        TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
+      run: curl -v -u "$TOMCAT_PASSWORD:$TOMCAT_USER" -T build/libs/api.war "http://www.azsim-monitoramento.com.br/manager/text/deploy?path=/api"
