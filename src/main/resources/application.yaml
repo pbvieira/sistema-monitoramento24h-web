@@ -1,11 +1,13 @@
+server:
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /api
 spring:
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mariadb://mysql-ag-br1-11.conteige.cloud:3306/kfbvgr_azsimdb
-    username: kfbvgr_azsim
-    password: Lazaro@81
-    driver-class-name: org.mariadb.jdbc.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.MariaDBDialect
-    hibernate:
-      ddl-auto: create
+  data:
+    mongodb:
+      uri: mongodb://${user_db}:${pass_db}@${host_db}:27017/${database_db}
+
+logging:
+  level:
+    ROOT: INFO
