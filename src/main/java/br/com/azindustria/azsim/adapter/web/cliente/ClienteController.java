@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin (origins = "http://127.0.0.1:5173")
 @RequestMapping("/cliente")
 public class ClienteController {
 

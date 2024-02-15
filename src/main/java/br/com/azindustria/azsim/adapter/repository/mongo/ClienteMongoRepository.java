@@ -11,5 +11,7 @@ public interface ClienteMongoRepository extends MongoRepository<ClienteDocument,
 
     ClienteDocument findOneByCodificador(Integer codificador);
 
+    ClienteDocument findByCodificador(String codificador);
+
     List<ClienteDocument> findByNomeLikeOrNomeFantasiaLike(String nome, String nomeFantasia);
 }
