@@ -62,4 +62,36 @@ public class ClienteController {
     private List<ClienteVO> toClienteRequestList(List<Cliente> clientes) {
         return clientes.stream().map(ClienteMapper.INSTANCE::toClienteVO).collect(Collectors.toList());
     }
+
+    @PutMapping("/{id}")
+    ResponseEntity<ClienteVO> atualizar(@PathVariable String id, @Validated @RequestBody ClienteVO clienteVO) {
+        Cliente clienteExistente = gestaoClientePort.findById(id);
+
+        if (clienteExistente == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        clienteExistente.setUnidade(clienteVO.getUnidade());
+        clienteExistente.setCodificador(clienteVO.getCodificador());
+        clienteExistente.setCodHabil(clienteVO.getCodHabil());
+        clienteExistente.setCodCondor(clienteVO.getCodCondor());
+        clienteExistente.setNatureza(clienteVO.getNatureza());
+        clienteExistente.setDocumento(clienteVO.getDocumento());
+        clienteExistente.setInscMunicipal(clienteVO.getInscMunicipal());
+        clienteExistente.setNome(clienteVO.getNome());
+        clienteExistente.setNomeFantasia(clienteVO.getNomeFantasia());
+        clienteExistente.setEndereco(clienteVO.getEndereco());
+        clienteExistente.setBairro(clienteVO.getBairro());
+        clienteExistente.setCidade(clienteVO.getCidade());
+        clienteExistente.setUf(clienteVO.getUf());
+        clienteExistente.setCep(clienteVO.getCep());
+        clienteExistente.setObservacao(clienteVO.getObservacao());
+        clienteExistente.setContatos(clienteVO.getContatos());
+        clienteExistente.setSetores(clienteVO.getSetores());
+        clienteExistente.setViagens(clienteVO.getViagens());
+
+
+        Cliente clienteAtualizado = gestaoClientePort.save(clienteExistente);
+        return new ResponseEntity<>(ClienteMapper.INSTANCE.toClienteVO(clienteAtualizado), HttpStatus.OK);
+    }
 }
