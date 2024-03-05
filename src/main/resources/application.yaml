@@ -6,8 +6,4 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://${user_db}:${pass_db}@${host_db}:27017/${database_db}
-
-logging:
-  level:
-    ROOT: INFO
+      uri: mongodb://localhost:27017/azsimdb
