@@ -11,7 +11,7 @@
 
     <groupId>br.com.azindustria</groupId>
     <artifactId>azsim</artifactId>
-    <packaging>${packaging.type}</packaging>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>azsim</name>

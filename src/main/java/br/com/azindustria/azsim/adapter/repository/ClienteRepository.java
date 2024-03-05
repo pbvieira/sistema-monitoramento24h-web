@@ -9,6 +9,7 @@ import br.com.azindustria.azsim.mapper.ClienteMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -20,6 +21,12 @@ public class ClienteRepository implements GestaoClienteRepository {
 
     public ClienteRepository(ClienteMongoRepository clienteMongoRepository) {
         this.clienteMongoRepository = clienteMongoRepository;
+    }
+
+    @Override
+    public List<Cliente> findByAtivoTrue() {
+        List<ClienteDocument> clienteDocuments = clienteMongoRepository.findByAtivoTrue();
+        return clienteDocuments.stream().map(ClienteMapper.INSTANCE::toCliente).collect(Collectors.toList());
     }
 
     @Override
@@ -46,16 +53,20 @@ public class ClienteRepository implements GestaoClienteRepository {
 
     @Override
     public Cliente save(Cliente cliente) {
+        cliente.setAtivo(true);
         ClienteDocument clienteDocument = ClienteMapper.INSTANCE.toClienteDocument(cliente);
 
-        // Verifica se já existe um cliente com o mesmo codificador, mas ID diferente
-        ClienteDocument clienteExistente = clienteMongoRepository.findOneByCodificador((clienteDocument.getCodificador()));
+        // Se o codificador estiver presente, verifica se já existe um cliente com o mesmo codificador, mas ID diferente
+        if (clienteDocument.getCodificador() != null) {
+            ClienteDocument clienteExistente = clienteMongoRepository.findOneByCodificador(clienteDocument.getCodificador());
 
-        if (nonNull(clienteExistente) && !clienteExistente.getId().equals(clienteDocument.getId())) {
-            throw new CodificadorEmUsoException(String.format("Codificador %s já está em uso no cliente %s", clienteExistente.getCodificador(), clienteExistente.getNome()));
+            if (clienteExistente != null && Objects.equals(clienteExistente.getId(), clienteDocument.getId())) {
+                throw new CodificadorEmUsoException(String.format("Codificador %s já está em uso no cliente %s", clienteExistente.getCodificador(), clienteExistente.getNome()));
+            }
         }
 
         clienteDocument = clienteMongoRepository.save(clienteDocument);
         return ClienteMapper.INSTANCE.toCliente(clienteDocument);
     }
+
 }

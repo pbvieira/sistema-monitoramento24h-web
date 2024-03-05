@@ -1,12 +1,17 @@
 package br.com.azindustria.azsim.core.domain.cliente.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
 
 @Data
 public class Cliente {
+
+    @Setter
+    private boolean ativo;
 
     private String id;
 

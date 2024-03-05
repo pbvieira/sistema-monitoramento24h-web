@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface GestaoClienteRepository {
 
+
+    List<Cliente> findByAtivoTrue();
+
     List<Cliente> findAll();
 
     Cliente findById(String id);

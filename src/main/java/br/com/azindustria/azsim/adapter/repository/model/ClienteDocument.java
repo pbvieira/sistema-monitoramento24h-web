@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +29,10 @@ public class ClienteDocument {
     private String codCondor;
 
     private NaturezaEnum natureza;
+
+    @Field("ativo")
+    private boolean ativo = true;
+
 
     @Indexed
     private String documento;

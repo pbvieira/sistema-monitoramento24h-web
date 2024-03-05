@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface GestaoClientePort {
 
+    void toggleAtivo(String id, boolean ativo);
+
+    List<Cliente> listarClientesAtivos();
+
     List<Cliente> findAll();
 
     Cliente findById(String id);
