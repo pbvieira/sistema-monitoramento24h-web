@@ -1,8 +1,12 @@
 package br.com.azindustria.azsim.core.domain.monitoramento.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ConfigEvento {
 
     private String id;

@@ -1,6 +1,5 @@
 package br.com.azindustria.azsim.adapter.repository.model;
 
-import br.com.azindustria.azsim.core.domain.monitoramento.model.Evento;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +15,7 @@ public class OcorrenciaDocument {
 
     private String idocorrenciapai;
 
-    private Evento evento;
+    private EventoDocument evento;
 
     private Date datacadastro;
 

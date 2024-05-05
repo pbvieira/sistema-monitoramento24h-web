@@ -1,9 +1,9 @@
 package br.com.azindustria.azsim.core.port.in;
 
-import br.com.azindustria.azsim.core.domain.monitoramento.model.Evento;
+import br.com.azindustria.azsim.adapter.web.valueobject.EventoVO;
 
 public interface MonitorEventoPort {
 
-    Evento save(Evento evento);
+    EventoVO save(EventoVO eventoVO);
 
 }

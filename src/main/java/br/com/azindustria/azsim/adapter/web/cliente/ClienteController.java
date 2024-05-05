@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -28,7 +27,7 @@ public class ClienteController {
 
     @GetMapping
     ResponseEntity<List<ClienteVO>> listar() {
-        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.findAll());
+        List<ClienteVO> clienteVOS = ClienteMapper.INSTANCE.toClienteVOList(gestaoClientePort.findAll());
         if (CollectionUtils.isEmpty(clienteVOS)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -37,7 +36,7 @@ public class ClienteController {
 
     @GetMapping(params = {"nome"})
     ResponseEntity<List<ClienteVO>> buscarPorNome(@RequestParam String nome) {
-        List<ClienteVO> clienteVOS = toClienteRequestList(gestaoClientePort.findByNomeOrNomeFantasia(nome));
+        List<ClienteVO> clienteVOS = ClienteMapper.INSTANCE.toClienteVOList(gestaoClientePort.findByNomeOrNomeFantasia(nome));
         if (CollectionUtils.isEmpty(clienteVOS)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -59,7 +58,13 @@ public class ClienteController {
         return new ResponseEntity<>(ClienteMapper.INSTANCE.toClienteVO(cliente), HttpStatus.OK);
     }
 
-    private List<ClienteVO> toClienteRequestList(List<Cliente> clientes) {
-        return clientes.stream().map(ClienteMapper.INSTANCE::toClienteVO).collect(Collectors.toList());
+    @DeleteMapping("{id}")
+    ResponseEntity<ClienteVO> deletar(@PathVariable String id) {
+        Cliente cliente = gestaoClientePort.delete(id);
+        if (isNull(cliente)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(ClienteMapper.INSTANCE.toClienteVO(cliente), HttpStatus.OK);
     }
 }

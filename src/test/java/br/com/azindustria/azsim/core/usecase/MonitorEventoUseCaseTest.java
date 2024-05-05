@@ -1,10 +1,10 @@
 package br.com.azindustria.azsim.core.usecase;
 
 import br.com.azindustria.azsim.AzsimApplicationTest;
+import br.com.azindustria.azsim.adapter.web.valueobject.EventoVO;
 import br.com.azindustria.azsim.container.MongoDbContainer;
 import br.com.azindustria.azsim.core.domain.cliente.model.*;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.ConfigEvento;
-import br.com.azindustria.azsim.core.domain.monitoramento.model.Evento;
 import br.com.azindustria.azsim.core.port.in.GestaoClientePort;
 import br.com.azindustria.azsim.core.port.in.MonitorEventoPort;
 import br.com.azindustria.azsim.core.port.out.GestaoConfigEventoRepository;
@@ -140,7 +140,7 @@ class MonitorEventoUseCaseTest extends AzsimApplicationTest {
 
     @Test
     void cadastroEventoInvasaoSetorTest() {
-        Evento evento = new Evento();
+        EventoVO evento = new EventoVO();
         evento.setUnidade("MONTENEGRO");
         evento.setCtx(1001);
         evento.setTipoctx("CTA");
@@ -171,12 +171,11 @@ class MonitorEventoUseCaseTest extends AzsimApplicationTest {
         assertEquals(cliente.getEndereco(), evento.getEndereco());
         assertEquals(cliente.getCidade(), evento.getCidade());
         assertEquals(1, evento.getAlarme());
-        assertNotNull(evento.getOcorrencia());
     }
 
     @Test
     void cadastroEventoStatusDesconhecidoTest() {
-        Evento evento = new Evento();
+        EventoVO evento = new EventoVO();
         evento.setUnidade("MONTENEGRO");
         evento.setCtx(1001);
         evento.setTipoctx("CTA");
@@ -207,12 +206,11 @@ class MonitorEventoUseCaseTest extends AzsimApplicationTest {
         assertEquals(cliente.getEndereco(), evento.getEndereco());
         assertEquals(cliente.getCidade(), evento.getCidade());
         assertEquals(0, evento.getAlarme());
-        assertNull(evento.getOcorrencia());
     }
 
     @Test
     void cadastroEventoInvasaoSetorNaoCadastradoTest() {
-        Evento evento = new Evento();
+        EventoVO evento = new EventoVO();
         evento.setUnidade("MONTENEGRO");
         evento.setCtx(1001);
         evento.setTipoctx("CTA");
@@ -243,12 +241,11 @@ class MonitorEventoUseCaseTest extends AzsimApplicationTest {
         assertEquals(cliente.getEndereco(), evento.getEndereco());
         assertEquals(cliente.getCidade(), evento.getCidade());
         assertEquals(1, evento.getAlarme());
-        assertNotNull(evento.getOcorrencia());
     }
 
     @Test
     void cadastroEventoInvasaoSetorClienteNaoCadastradoTest() {
-        Evento evento = new Evento();
+        EventoVO evento = new EventoVO();
         evento.setUnidade("MONTENEGRO");
         evento.setCtx(1001);
         evento.setTipoctx("CTA");
@@ -279,6 +276,5 @@ class MonitorEventoUseCaseTest extends AzsimApplicationTest {
         assertNull(evento.getEndereco());
         assertNull(evento.getCidade());
         assertEquals(0, evento.getAlarme());
-        assertNull(evento.getOcorrencia());
     }
 }

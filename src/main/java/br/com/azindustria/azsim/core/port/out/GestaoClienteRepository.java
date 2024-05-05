@@ -16,4 +16,6 @@ public interface GestaoClienteRepository {
     Cliente findOneByCodificador(Integer codificador);
 
     Cliente save(Cliente cliente) throws CodificadorEmUsoException;
+
+    Cliente delete(String id);
 }

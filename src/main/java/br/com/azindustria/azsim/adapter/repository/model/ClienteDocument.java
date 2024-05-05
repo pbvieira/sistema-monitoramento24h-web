@@ -69,6 +69,9 @@ public class ClienteDocument {
 
     private List<Viagem> viagens;
 
+    @Indexed
+    private boolean ativo = true;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

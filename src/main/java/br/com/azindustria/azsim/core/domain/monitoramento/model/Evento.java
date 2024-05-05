@@ -2,13 +2,17 @@ package br.com.azindustria.azsim.core.domain.monitoramento.model;
 
 import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
 import br.com.azindustria.azsim.core.domain.cliente.model.Setor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 import static java.util.Objects.nonNull;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Evento {
 
     private String unidade;
@@ -44,8 +48,6 @@ public class Evento {
     private String cidade;
 
     private Integer alarme = 0;
-
-    private Ocorrencia ocorrencia;
 
     public boolean isGeraOcorrencia() {
         return alarme > 0 && nonNull(idcliente);

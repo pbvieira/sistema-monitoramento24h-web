@@ -37,6 +37,11 @@ public class GestaoClienteUseCase implements GestaoClientePort {
     }
 
     @Override
+    public Cliente delete(String id) {
+        return gestaoClienteRepository.delete(id);
+    }
+
+    @Override
     public Cliente findOneByCodificador(Integer codificador) {
         return gestaoClienteRepository.findOneByCodificador(codificador);
     }

@@ -2,11 +2,12 @@ package br.com.azindustria.azsim.core.domain.cliente.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Data
-public class Cliente {
+public class Cliente implements Serializable {
 
     private String id;
 
@@ -53,6 +54,8 @@ public class Cliente {
     private List<Setor> setores;
 
     private List<Viagem> viagens;
+
+    private boolean ativo = true;
 
     @Override
     public boolean equals(Object o) {

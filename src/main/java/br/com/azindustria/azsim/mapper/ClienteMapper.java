@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface ClienteMapper {
@@ -20,4 +22,6 @@ public interface ClienteMapper {
     Cliente toCliente(ClienteVO clienteVO);
 
     ClienteVO toClienteVO(Cliente cliente);
+
+    List<ClienteVO> toClienteVOList(List<Cliente> clientes);
 }

@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface ClienteMongoRepository extends MongoRepository<ClienteDocument, String> {
 
+    List<ClienteDocument> findAllByAtivo(boolean ativo);
+
     ClienteDocument findOneByCodificador(Integer codificador);
 
-    List<ClienteDocument> findByNomeLikeOrNomeFantasiaLike(String nome, String nomeFantasia);
+    List<ClienteDocument> findByNomeLikeOrNomeFantasiaLikeAndAtivo(String nome, String nomeFantasia, boolean ativo);
 }

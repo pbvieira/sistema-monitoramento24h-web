@@ -4,13 +4,17 @@ import br.com.azindustria.azsim.core.domain.cliente.model.Contato;
 import br.com.azindustria.azsim.core.domain.cliente.model.NaturezaEnum;
 import br.com.azindustria.azsim.core.domain.cliente.model.Setor;
 import br.com.azindustria.azsim.core.domain.cliente.model.Viagem;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClienteVO {
 
     private String id;
@@ -62,6 +66,8 @@ public class ClienteVO {
     private List<Setor> setores;
 
     private List<Viagem> viagens;
+
+    private boolean ativo;
 
     @Override
     public boolean equals(Object o) {

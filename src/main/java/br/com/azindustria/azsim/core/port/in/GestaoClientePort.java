@@ -15,5 +15,7 @@ public interface GestaoClientePort {
 
     Cliente save(Cliente cliente);
 
+    Cliente delete(String id);
+
     Cliente findOneByCodificador(Integer codificador);
 }

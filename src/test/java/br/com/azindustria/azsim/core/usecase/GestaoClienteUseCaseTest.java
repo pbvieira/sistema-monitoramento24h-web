@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testcontainers.shaded.org.apache.commons.lang3.SerializationUtils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -101,7 +102,9 @@ class GestaoClienteUseCaseTest extends AzsimApplicationTest {
     @Test
     void cadastroClienteCodificadorEmUsoTest() {
         Exception exception = assertThrows(CodificadorEmUsoException.class, () -> {
-            cliente = gestaoClientePort.save(cliente);
+            Cliente clienteFake = SerializationUtils.clone(cliente);
+            clienteFake.setId(cliente.getId() + "x");
+            gestaoClientePort.save(clienteFake);
         });
 
         String expectedMessage = "Codificador 98657898 já está em uso no cliente nome do cliente";
