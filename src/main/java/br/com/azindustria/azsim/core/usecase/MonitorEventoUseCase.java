@@ -54,6 +54,7 @@ public class MonitorEventoUseCase implements MonitorEventoPort {
             Ocorrencia ocorrencia = new Ocorrencia();
             ocorrencia.setEvento(evento);
             ocorrencia.setDatacadastro(new Date());
+            ocorrencia.setCliente(cliente);
             OcorrenciaVO ocorrenciaResponse = OcorrenciaMapper.INSTANCE.toOcorrenciaVO(monitorOcorrenciaRepository.save(ocorrencia));
             this.simpMessagingTemplate.convertAndSend("/topic/ocorrencias", ocorrenciaResponse);
         }

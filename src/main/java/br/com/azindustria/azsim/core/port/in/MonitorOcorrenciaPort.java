@@ -6,4 +6,6 @@ public interface MonitorOcorrenciaPort {
 
     Ocorrencia save(Ocorrencia ocorrencia);
 
+    Ocorrencia findById (String id);
+
 }

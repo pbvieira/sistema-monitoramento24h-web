@@ -55,13 +55,13 @@ public class ClienteVO {
 
     private String procedimentoPolicial;
 
-    private List<Contato> contatos;
-
     private String modeloCentral;
 
     private String observacaoCentral;
 
     private Integer codificador;
+
+    private List<Contato> contatos;
 
     private List<Setor> setores;
 

@@ -15,6 +15,8 @@ public class OcorrenciaDocument {
 
     private String idocorrenciapai;
 
+    private ClienteDocument cliente;
+
     private EventoDocument evento;
 
     private Date datacadastro;

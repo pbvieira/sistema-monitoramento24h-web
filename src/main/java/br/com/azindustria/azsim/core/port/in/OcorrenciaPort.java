@@ -6,4 +6,6 @@ public interface OcorrenciaPort {
 
     Ocorrencia save(Ocorrencia ocorrencia);
 
+    Ocorrencia findById(String id);
+
 }

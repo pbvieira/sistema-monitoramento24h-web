@@ -1,5 +1,6 @@
 package br.com.azindustria.azsim.core.domain.monitoramento.model;
 
+import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ public class Ocorrencia {
     private String id;
 
     private String idocorrenciapai;
+
+    private Cliente cliente;
 
     private Evento evento;
 

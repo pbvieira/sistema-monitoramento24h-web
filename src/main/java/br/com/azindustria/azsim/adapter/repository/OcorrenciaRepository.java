@@ -23,4 +23,9 @@ public class OcorrenciaRepository implements MonitorOcorrenciaRepository {
         return OcorrenciaMapper.INSTANCE.toOcorrencia(ocorrenciaDocument);
     }
 
+    @Override
+    public Ocorrencia findById(String id) {
+        return OcorrenciaMapper.INSTANCE.toOcorrencia(ocorrenciaMongoRepository.findById(id).orElse(null));
+    }
+
 }

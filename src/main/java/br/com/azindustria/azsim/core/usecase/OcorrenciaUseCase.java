@@ -15,6 +15,11 @@ public class OcorrenciaUseCase implements OcorrenciaPort {
     }
 
     @Override
+    public Ocorrencia findById(String id) {
+        return monitorOcorrenciaRepository.findById(id);
+    }
+
+    @Override
     public Ocorrencia save(Ocorrencia ocorrencia) {
         return monitorOcorrenciaRepository.save(ocorrencia);
     }

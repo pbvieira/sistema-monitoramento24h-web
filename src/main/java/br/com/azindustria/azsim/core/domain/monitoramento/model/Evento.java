@@ -5,6 +5,7 @@ import br.com.azindustria.azsim.core.domain.cliente.model.Setor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -60,7 +61,7 @@ public class Evento {
         Integer numeroSetor = null;
 
         if (nonNull(configEvento)) {
-            if (nonNull(configEvento.getSetor())) {
+            if (StringUtils.hasLength(configEvento.getSetor())) {
                 numeroSetor = Integer.parseInt(configEvento.getSetor(), 16);
             }
             this.destatus = configEvento.getDescricao();
