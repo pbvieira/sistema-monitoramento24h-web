@@ -6,7 +6,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://${user_db}:${pass_db}@${host_db}:27017/${database_db}
+      uri: mongodb://fukhpt_azsimdb:*TVgcp!Og&wzeAox@mongodb-ag-br1-2.conteige.cloud:27017/fukhpt_azsimdb
 
 logging:
   level:

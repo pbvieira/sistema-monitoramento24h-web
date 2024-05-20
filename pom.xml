@@ -11,7 +11,7 @@
 
     <groupId>br.com.azindustria</groupId>
     <artifactId>azsim</artifactId>
-    <packaging>${packaging.type}</packaging>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>azsim</name>
@@ -64,7 +64,19 @@
             <optional>true</optional>
         </dependency>
 
-<!--        <dependency>-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version> <!-- ou a versão mais recente -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version> <!-- ou a versão mais recente -->
+        </dependency>
+
+        <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-mail</artifactId>-->
 <!--        </dependency>-->

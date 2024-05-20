@@ -1,12 +1,15 @@
 package br.com.azindustria.azsim.core.domain.monitoramento.model;
 
 import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
+import br.com.azindustria.azsim.core.domain.cliente.model.Contato;
 import br.com.azindustria.azsim.core.domain.cliente.model.Setor;
+import br.com.azindustria.azsim.core.domain.cliente.model.Viagem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Objects.nonNull;
 
@@ -49,6 +52,8 @@ public class Evento {
 
     private Integer alarme = 0;
 
+
+
     public boolean isGeraOcorrencia() {
         return alarme > 0 && nonNull(idcliente);
     }
@@ -60,17 +65,23 @@ public class Evento {
         Integer numeroSetor = null;
 
         if (nonNull(configEvento)) {
-            if (nonNull(configEvento.getSetor())) {
-                numeroSetor = Integer.parseInt(configEvento.getSetor(), 16);
+            if (nonNull(configEvento.getSetor()) && !configEvento.getSetor().isEmpty()) {
+                try {
+                    numeroSetor = Integer.parseInt(configEvento.getSetor(), 16);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
             this.destatus = configEvento.getDescricao();
         }
+
 
         if (nonNull(cliente)) {
             this.idcliente = cliente.getId();
             this.nmcliente = cliente.getNome();
             this.endereco = cliente.getEndereco();
             this.cidade = cliente.getCidade();
+
             if (nonNull(configEvento)) {
                 this.alarme = configEvento.getAlarme();
             }

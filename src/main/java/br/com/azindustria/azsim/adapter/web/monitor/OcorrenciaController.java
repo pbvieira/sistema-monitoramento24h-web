@@ -1,22 +1,24 @@
 package br.com.azindustria.azsim.adapter.web.monitor;
 
+import br.com.azindustria.azsim.adapter.web.valueobject.ClienteVO;
 import br.com.azindustria.azsim.adapter.web.valueobject.OcorrenciaVO;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 import br.com.azindustria.azsim.core.port.in.OcorrenciaPort;
+import br.com.azindustria.azsim.mapper.ClienteMapper;
 import br.com.azindustria.azsim.mapper.OcorrenciaMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/ocorrencia")
 public class OcorrenciaController {
 
     private final OcorrenciaPort ocorrenciaPort;
+
 
     public OcorrenciaController(OcorrenciaPort ocorrenciaPort) {
         this.ocorrenciaPort = ocorrenciaPort;
@@ -29,4 +31,13 @@ public class OcorrenciaController {
         return new ResponseEntity<>(ocorrenciaResponse, HttpStatus.OK);
     }
 
+
+    @GetMapping("{id}")
+    ResponseEntity<OcorrenciaVO> buscarPorId(@PathVariable String id) {
+        OcorrenciaVO ocorrenciaVO = OcorrenciaMapper.INSTANCE.toOcorrenciaVO(ocorrenciaPort.findById(id));
+        if (isNull(ocorrenciaVO)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(ocorrenciaVO, HttpStatus.OK);
+    }
 }
