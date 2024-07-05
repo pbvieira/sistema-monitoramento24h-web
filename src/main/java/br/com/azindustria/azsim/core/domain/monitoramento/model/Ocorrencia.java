@@ -29,6 +29,10 @@ public class Ocorrencia {
 
     private String idagente;
 
+    private String agente;
+
+    private String operador;
+
     private String idoperadorabertura;
 
     private String idoperadorfechamento;
@@ -48,6 +52,8 @@ public class Ocorrencia {
     private Date horachegadaemp;
 
     private Date horachegadacliente;
+
+    private boolean deslocamento;
 
     private Date tempodeslocamento;
 
