@@ -48,7 +48,12 @@ public class ClienteRepository implements GestaoClienteRepository {
     @Override
     public Cliente save(Cliente cliente) {
         ClienteDocument clienteDocument = ClienteMapper.INSTANCE.toClienteDocument(cliente);
-        ClienteDocument clienteExistente = clienteMongoRepository.findOneByCodificador(clienteDocument.getCodificador());
+        ClienteDocument clienteExistente = null;
+
+        if (nonNull(clienteDocument.getCodificador())) {
+            clienteExistente = clienteMongoRepository.findOneByCodificador(clienteDocument.getCodificador());
+        }
+
         if (nonNull(clienteExistente) && !clienteExistente.getId().equals(clienteDocument.getId())) {
             throw new CodificadorEmUsoException(String.format("Codificador %s já está em uso no cliente %s", clienteExistente.getCodificador(), clienteExistente.getNome()));
         }

@@ -15,8 +15,6 @@ public class OcorrenciaVO {
 
     private String idocorrenciapai;
 
-    private ClienteVO cliente;
-
     private EventoVO evento;
 
     private Date datacadastro;
