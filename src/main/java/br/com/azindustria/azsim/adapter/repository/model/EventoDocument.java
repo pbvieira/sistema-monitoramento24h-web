@@ -52,6 +52,8 @@ public class EventoDocument {
 
     private String cidade;
 
+    private String bairro;
+
     private Integer alarme = 0;
 
     public boolean isGeraOcorrencia() {

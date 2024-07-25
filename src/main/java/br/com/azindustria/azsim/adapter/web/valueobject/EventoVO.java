@@ -43,6 +43,8 @@ public class EventoVO {
 
     private String cidade;
 
+    private String bairro;
+
     private Integer alarme = 0;
 
 }
