@@ -11,6 +11,7 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "master" ]
+
   pull_request:
     branches: [ "master" ]
 
@@ -29,3 +30,11 @@ jobs:
         cache: maven
     - name: Build
       run: mvn -P release -B package --file pom.xml
+
+    - name: Deploy Tomcat
+      shell: bash
+      env:
+        TOMCAT_USER: ${{ secrets.TOMCAT_USER }}
+        TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
+      run: |
+        curl -v -u "$TOMCAT_USER:$TOMCAT_PASSWORD" -T build/libs/api.war "http://www.application.dev.br/manager/text/deploy?path=/api"      
