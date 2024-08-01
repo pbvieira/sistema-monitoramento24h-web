@@ -37,4 +37,4 @@ jobs:
         TOMCAT_USER: ${{ secrets.TOMCAT_USER }}
         TOMCAT_PASSWORD: ${{ secrets.TOMCAT_PASSWORD }}
       run: |
-        curl -v -u "$TOMCAT_USER:$TOMCAT_PASSWORD" -T target/api.war "http://www.application.dev.br/manager/text/deploy?path=/api"      
+        curl -v -u "$TOMCAT_USER:$TOMCAT_PASSWORD" -T target/azsim-api.war "http://www.application.dev.br/manager/text/deploy?path=/azsim-api"
