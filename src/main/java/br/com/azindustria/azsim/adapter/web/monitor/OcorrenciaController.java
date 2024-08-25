@@ -17,7 +17,6 @@ public class OcorrenciaController {
 
     private final OcorrenciaPort ocorrenciaPort;
 
-
     public OcorrenciaController(OcorrenciaPort ocorrenciaPort) {
         this.ocorrenciaPort = ocorrenciaPort;
     }

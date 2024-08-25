@@ -1,5 +1,8 @@
 package br.com.azindustria.azsim.adapter.web.valueobject;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import br.com.azindustria.azsim.config.CustomTimeDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +20,13 @@ public class OcorrenciaVO {
 
     private EventoVO evento;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date datacadastro;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date dataatendimento;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date dataencerramento;
 
     private String idagente;
@@ -33,10 +39,13 @@ public class OcorrenciaVO {
 
     private String idoperadorfechamento;
 
+    @JsonDeserialize(using = CustomTimeDeserializer.class)
     private Date horasaidaemp;
 
+    @JsonDeserialize(using = CustomTimeDeserializer.class)
     private Date horasaidacliente;
 
+    @JsonDeserialize(using = CustomTimeDeserializer.class)
     private Date horaaberturalacre;
 
     private Integer kmsaida;
@@ -45,8 +54,10 @@ public class OcorrenciaVO {
 
     private Integer kmtotalpercorrido;
 
+    @JsonDeserialize(using = CustomTimeDeserializer.class)
     private Date horachegadaemp;
 
+    @JsonDeserialize(using = CustomTimeDeserializer.class)
     private Date horachegadacliente;
 
     private boolean deslocamento;
@@ -70,5 +81,4 @@ public class OcorrenciaVO {
     private String ocorrenciapolicialresumo;
 
     private String idordemservico;
-
 }
