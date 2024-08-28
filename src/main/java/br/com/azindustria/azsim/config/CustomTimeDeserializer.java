@@ -1,13 +1,16 @@
 package br.com.azindustria.azsim.config;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -27,7 +30,9 @@ public class CustomTimeDeserializer extends JsonDeserializer<Date> {
         LocalDate currentDate = LocalDate.now();
         LocalTime parsedTime = LocalTime.parse(timeString, timeFormatter);
         LocalDateTime dateTime = LocalDateTime.of(currentDate, parsedTime);
-        ZoneId zoneId = ZoneId.of("America/Brasilia");
-        return Date.from(dateTime.atZone(zoneId).toInstant());
+        LocalDateTime adjustedDateTime = dateTime.minusHours(3);
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime zonedDateTime = adjustedDateTime.atZone(zoneId);
+        return Date.from(zonedDateTime.toInstant());
     }
 }

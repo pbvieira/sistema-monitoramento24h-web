@@ -70,4 +70,5 @@ public class OcorrenciaDocument {
     private String ocorrenciapolicialresumo;
 
     private String idordemservico;
+
 }
