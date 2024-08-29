@@ -80,5 +80,4 @@ public class Ocorrencia {
     private List<Viagem> viagens;
 
     private List<Contato> contato;
-
 }

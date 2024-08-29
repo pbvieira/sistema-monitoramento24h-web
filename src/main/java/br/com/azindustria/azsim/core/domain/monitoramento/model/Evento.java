@@ -48,6 +48,8 @@ public class Evento {
 
     private String cidade;
 
+    private String bairro;
+
     private Integer alarme = 0;
 
     public boolean isGeraOcorrencia() {
@@ -72,6 +74,7 @@ public class Evento {
             this.nmcliente = cliente.getNome();
             this.endereco = cliente.getEndereco();
             this.cidade = cliente.getCidade();
+            this.bairro = cliente.getBairro();
             if (nonNull(configEvento)) {
                 this.alarme = configEvento.getAlarme();
             }
