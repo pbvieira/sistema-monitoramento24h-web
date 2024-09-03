@@ -81,4 +81,7 @@ public class OcorrenciaVO {
     private String ocorrenciapolicialresumo;
 
     private String idordemservico;
+
+    private boolean aberta = true;
+
 }

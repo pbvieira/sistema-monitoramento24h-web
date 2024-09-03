@@ -17,6 +17,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MonitorEventoUseCase implements MonitorEventoPort {
@@ -60,4 +61,10 @@ public class MonitorEventoUseCase implements MonitorEventoPort {
 
         return eventoResponse;
     }
+
+    public List<Evento> findAll() {
+        return monitorEventoRepository.findAll();
+    }
+
+
 }

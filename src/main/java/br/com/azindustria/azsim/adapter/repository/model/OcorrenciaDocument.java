@@ -71,4 +71,6 @@ public class OcorrenciaDocument {
 
     private String idordemservico;
 
+    private boolean aberta = true;
+
 }
