@@ -15,7 +15,6 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/cliente")
 public class ClienteController {
 

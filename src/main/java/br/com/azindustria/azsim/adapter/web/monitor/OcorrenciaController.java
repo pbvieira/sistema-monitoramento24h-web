@@ -1,19 +1,14 @@
 package br.com.azindustria.azsim.adapter.web.monitor;
 
-import br.com.azindustria.azsim.adapter.repository.model.OcorrenciaDocument;
-import br.com.azindustria.azsim.adapter.web.valueobject.ClienteVO;
 import br.com.azindustria.azsim.adapter.web.valueobject.OcorrenciaVO;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 import br.com.azindustria.azsim.core.port.in.OcorrenciaPort;
-import br.com.azindustria.azsim.mapper.ClienteMapper;
 import br.com.azindustria.azsim.mapper.OcorrenciaMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +42,7 @@ public class OcorrenciaController {
 
     @GetMapping
     public ResponseEntity<List<OcorrenciaVO>> buscarOcorrenciasAbertas() {
-        List<Ocorrencia> todasOcorrencias = ocorrenciaPort.findAll();
+        List<Ocorrencia> todasOcorrencias = ocorrenciaPort.findTop50ByOrderByDatacadastroDesc();
 
         List<OcorrenciaVO> abertas = todasOcorrencias.stream()
                 .filter(ocorrencia -> ocorrencia.isAberta())

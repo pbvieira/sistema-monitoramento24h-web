@@ -1,12 +1,9 @@
 package br.com.azindustria.azsim.adapter.repository;
 
-import br.com.azindustria.azsim.adapter.repository.model.ClienteDocument;
 import br.com.azindustria.azsim.adapter.repository.model.OcorrenciaDocument;
 import br.com.azindustria.azsim.adapter.repository.mongo.OcorrenciaMongoRepository;
-import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 import br.com.azindustria.azsim.core.port.out.MonitorOcorrenciaRepository;
-import br.com.azindustria.azsim.mapper.ClienteMapper;
 import br.com.azindustria.azsim.mapper.OcorrenciaMapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +16,8 @@ public class OcorrenciaRepository implements MonitorOcorrenciaRepository {
     OcorrenciaMongoRepository ocorrenciaMongoRepository;
 
     @Override
-    public List<Ocorrencia> findAll() {
-        List<OcorrenciaDocument> ocorrenciaDocuments = ocorrenciaMongoRepository.findAll();
+    public List<Ocorrencia> findTop50ByOrderByDatacadastroDesc() {
+        List<OcorrenciaDocument> ocorrenciaDocuments = ocorrenciaMongoRepository.findTop50ByOrderByDatacadastroDesc();
         return ocorrenciaDocuments.stream().map(OcorrenciaMapper.INSTANCE::toOcorrencia).collect(Collectors.toList());
     }
 

@@ -9,6 +9,6 @@ public interface MonitorEventoPort {
 
     EventoVO save(EventoVO eventoVO);
 
-    List<Evento> findAll();
+    List<Evento> findTop250ByOrderByDataeventoDesc();
 
 }

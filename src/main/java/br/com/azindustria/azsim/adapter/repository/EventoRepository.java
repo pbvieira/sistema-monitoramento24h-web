@@ -28,11 +28,9 @@ public class EventoRepository implements MonitorEventoRepository {
     }
 
     @Override
-    public List<Evento> findAll() {
-        List<EventoDocument> ocorrenciaDocuments = eventoMongoRepository.findAll();
-        return ocorrenciaDocuments.stream().map(EventoMapper.INSTANCE::toEvento).collect(Collectors.toList());
+    public List<Evento> findTop250ByOrderByDataeventoDesc() {
+        List<EventoDocument> eventoDocuments = eventoMongoRepository.findFirst250ByOrderByDataeventoDesc();
+        return eventoDocuments.stream().map(EventoMapper.INSTANCE::toEvento).collect(Collectors.toList());
     }
-
-
 
 }

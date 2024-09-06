@@ -1,8 +1,8 @@
 server:
   error:
-    include-stacktrace: never
+    include-stacktrace: always
   servlet:
-    context-path: /api
+    context-path: /azsim-api
 spring:
   data:
     mongodb:
