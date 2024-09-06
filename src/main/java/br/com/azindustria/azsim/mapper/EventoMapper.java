@@ -6,7 +6,9 @@ import br.com.azindustria.azsim.core.domain.monitoramento.model.Evento;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EventoMapper {
 
