@@ -1,6 +1,5 @@
 package br.com.azindustria.azsim.core.usecase;
 
-import br.com.azindustria.azsim.core.domain.cliente.model.Cliente;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 import br.com.azindustria.azsim.core.port.in.OcorrenciaPort;
 import br.com.azindustria.azsim.core.port.out.MonitorOcorrenciaRepository;
@@ -22,10 +21,9 @@ public class OcorrenciaUseCase implements OcorrenciaPort {
         return monitorOcorrenciaRepository.findById(id);
     }
 
-    public List<Ocorrencia> findAll() {
-        return monitorOcorrenciaRepository.findAll();
+    public List<Ocorrencia> findTop50ByOrderByDatacadastroDesc() {
+        return monitorOcorrenciaRepository.findTop50ByOrderByDatacadastroDesc();
     }
-
 
     @Override
     public Ocorrencia save(Ocorrencia ocorrencia) {

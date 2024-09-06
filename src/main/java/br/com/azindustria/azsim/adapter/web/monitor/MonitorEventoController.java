@@ -1,12 +1,9 @@
 package br.com.azindustria.azsim.adapter.web.monitor;
 
 import br.com.azindustria.azsim.adapter.web.valueobject.EventoVO;
-import br.com.azindustria.azsim.adapter.web.valueobject.OcorrenciaVO;
 import br.com.azindustria.azsim.core.domain.monitoramento.model.Evento;
-import br.com.azindustria.azsim.core.domain.monitoramento.model.Ocorrencia;
 import br.com.azindustria.azsim.core.port.in.MonitorEventoPort;
 import br.com.azindustria.azsim.mapper.EventoMapper;
-import br.com.azindustria.azsim.mapper.OcorrenciaMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -34,12 +31,9 @@ public class MonitorEventoController {
 
     @GetMapping
     public ResponseEntity<List<EventoVO>> buscarTodosEventos() {
-
-
-        List<Evento> todosEventos = monitorEventoPort.findAll();
-
-        List<EventoVO> eventoVOs = todosEventos.stream()
-                .map(evento -> EventoMapper.INSTANCE.toEventoVO(evento)) // Usa a instância injetada do mapper
+        List<Evento> ultimosEventos = monitorEventoPort.findTop250ByOrderByDataeventoDesc();
+        List<EventoVO> eventoVOs = ultimosEventos.stream()
+                .map(EventoMapper.INSTANCE::toEventoVO)
                 .collect(Collectors.toList());
 
         if (eventoVOs.isEmpty()) {
@@ -48,6 +42,7 @@ public class MonitorEventoController {
 
         return new ResponseEntity<>(eventoVOs, HttpStatus.OK);
     }
-    }
+
+}
 
 

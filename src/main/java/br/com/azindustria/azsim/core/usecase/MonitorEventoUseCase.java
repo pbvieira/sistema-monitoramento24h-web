@@ -62,8 +62,8 @@ public class MonitorEventoUseCase implements MonitorEventoPort {
         return eventoResponse;
     }
 
-    public List<Evento> findAll() {
-        return monitorEventoRepository.findAll();
+    public List<Evento> findTop250ByOrderByDataeventoDesc() {
+        return monitorEventoRepository.findTop250ByOrderByDataeventoDesc();
     }
 
 
